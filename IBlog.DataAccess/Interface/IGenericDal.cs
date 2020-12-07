@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 
 namespace IBlog.DataAccess.Interface
 {
-    public interface IGenericDal<TEntity> where TEntity : class, ITable, new()
+    public interface IGenericDal<tEntity> where tEntity : class, ITable, new()
     {
-        Task<List<TEntity>> GetAllAsync();
-        Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> filter);
-        Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter);
-        Task AddAsync(TEntity item);
+        Task<List<tEntity>> GetAllAsync();
+        Task<List<tEntity>> GetAllAsync(Expression<Func<tEntity, bool>> filter);
+        Task<List<tEntity>> GetAllAsync<tKey>(Expression<Func<tEntity, tKey>> keySelector);
+        Task<List<tEntity>> GetAllAsync<tKey>(Expression<Func<tEntity, bool>> filter, Expression<Func<tEntity, tKey>> keySelector);
+        Task<tEntity> GetAsync(Expression<Func<tEntity, bool>> filter);
+        Task AddAsync(tEntity item);
 
-        Task UpdateAsync(TEntity item);
-        Task RemoveAsync(TEntity item);
+        Task UpdateAsync(tEntity item);
+        Task RemoveAsync(tEntity item);
 
     }
 }

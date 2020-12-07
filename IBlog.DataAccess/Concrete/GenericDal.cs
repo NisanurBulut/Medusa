@@ -4,6 +4,7 @@ using IBlog.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -25,24 +26,42 @@ namespace IBlog.DataAccess.Concrete
             return await context.Set<tEntity>().ToListAsync();
         }
 
-        public Task<List<tEntity>> GetAllAsync(Expression<Func<tEntity, bool>> filter)
+        public async Task<List<tEntity>> 
+            GetAllAsync<tKey>(Expression<Func<tEntity, bool>> filter, Expression<Func<tEntity,tKey>> keySelector)
         {
-            throw new NotImplementedException();
+            using var context = new DatabaseContext();
+            return await context.Set<tEntity>().Where(filter).OrderByDescending(keySelector).ToListAsync();
+        }
+        public async Task<List<tEntity>>
+            GetAllAsync<tKey>(Expression<Func<tEntity, tKey>> keySelector)
+        {
+            using var context = new DatabaseContext();
+            return await context.Set<tEntity>().OrderByDescending(keySelector).ToListAsync();
         }
 
-        public Task<tEntity> GetAsync(Expression<Func<tEntity, bool>> filter)
+        public async Task<List<tEntity>> GetAllAsync(Expression<Func<tEntity, bool>> filter)
         {
-            throw new NotImplementedException();
+            using var context = new DatabaseContext();
+            return await context.Set<tEntity>().Where(filter).ToListAsync();
+        }
+        public async Task<tEntity> GetAsync(Expression<Func<tEntity, bool>> filter)
+        {
+            using var context = new DatabaseContext();
+            return await context.Set<tEntity>().FirstOrDefaultAsync(filter);
         }
 
-        public Task RemoveAsync(tEntity item)
+        public async Task RemoveAsync(tEntity item)
         {
-            throw new NotImplementedException();
+            using var context = new DatabaseContext();
+             context.Remove(item);
+            await context.SaveChangesAsync();
         }
 
-        public Task UpdateAsync(tEntity item)
+        public async Task UpdateAsync(tEntity item)
         {
-            throw new NotImplementedException();
+            using var context = new DatabaseContext();
+            context.Update(item);
+            await context.SaveChangesAsync();
         }
     }
 }
