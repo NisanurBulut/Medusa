@@ -17,4 +17,12 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Concrete\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IBlog.Entities\IBlog.Entities.csproj" />
+  </ItemGroup>
+
 </Project>

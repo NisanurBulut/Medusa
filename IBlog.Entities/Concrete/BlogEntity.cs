@@ -11,5 +11,6 @@ namespace IBlog.Entities
         public string LongDescription { get; set; }
         public DateTime PostedTime { get; set; }
         public List<CategoryBlogEntity> CategoryBlogs { get; set; }
+        public string ImagePath { get; set; }
     }
 }
