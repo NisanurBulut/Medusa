@@ -15,5 +15,7 @@ namespace IBlog.Entities
         public CommentEntity ParentComment { get; set; }
 
         public List<CommentEntity> SubComments { get; set; }
+        public int BlogId { get; set; }
+        public BlogEntity Blog { get; set; }
     }
 }
