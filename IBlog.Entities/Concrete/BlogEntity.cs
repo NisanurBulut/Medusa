@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace IBlog.Entities
 {
@@ -9,5 +10,6 @@ namespace IBlog.Entities
         public string ShortDescription { get; set; }
         public string LongDescription { get; set; }
         public DateTime PostedTime { get; set; }
+        public List<CategoryBlogEntity> CategoryBlogs { get; set; }
     }
 }

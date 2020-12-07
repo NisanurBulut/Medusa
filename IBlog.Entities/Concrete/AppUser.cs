@@ -1,4 +1,6 @@
-﻿namespace IBlog.Entities
+﻿using System.Collections.Generic;
+
+namespace IBlog.Entities
 {
     public class AppUser:ITable
     {
@@ -7,5 +9,6 @@
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Password { get; set; }
+        public List<BlogEntity> Blogs { get; set; }
     }
 }
