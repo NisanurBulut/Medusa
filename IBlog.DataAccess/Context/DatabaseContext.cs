@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using IBlog.Entities;
+using IBlog.DataAccess.Mapping;
 
 namespace IBlog.DataAccess.Context
 {
@@ -7,11 +8,17 @@ namespace IBlog.DataAccess.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=~/IBlog.DataAccess/Context/IBlog.db");
+            optionsBuilder.UseSqlite("Data Source=../IBlog.DataAccess/Context/IBlog.db");
             base.OnConfiguring(optionsBuilder);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new AppUserMap());
+            modelBuilder.ApplyConfiguration(new BlogMap());
+            modelBuilder.ApplyConfiguration(new CategoryMap());
+            modelBuilder.ApplyConfiguration(new CommentMap());
+            modelBuilder.ApplyConfiguration(new CategoryBlogMap());
+
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<AppUserEntity> tAppUser { get; set; }
