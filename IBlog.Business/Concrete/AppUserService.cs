@@ -6,7 +6,7 @@ namespace IBlog.Business.Concrete
 {
     public class AppUserService : GenericService<AppUserEntity>, IAppUserService
     {
-        IGenericDal<AppUserEntity> _genericDal;
+        private IGenericDal<AppUserEntity> _genericDal;
         public AppUserService(IGenericDal<AppUserEntity> genericDal) :base(genericDal)
         {
             _genericDal = genericDal;

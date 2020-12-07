@@ -10,7 +10,7 @@ namespace IBlog.Business
     {
         Task<List<tEntity>> GetAllAsync();
         
-        Task<tEntity> FindByIdAsync(int);
+        Task<tEntity> FindByIdAsync(int id);
         Task AddAsync(tEntity item);
 
         Task UpdateAsync(tEntity item);
