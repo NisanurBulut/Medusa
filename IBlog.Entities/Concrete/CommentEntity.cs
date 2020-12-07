@@ -4,7 +4,7 @@ using System.Text;
 
 namespace IBlog.Entities
 {
-    class CommentEntity:ITable
+    public class CommentEntity:ITable
     {
         public int Id { get; set; }
         public string AuthorName { get; set; }

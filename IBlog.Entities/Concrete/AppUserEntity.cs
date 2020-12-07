@@ -2,7 +2,7 @@
 
 namespace IBlog.Entities
 {
-    public class AppUser:ITable
+    public class AppUserEntity:ITable
     {
         public int Id { get; set; }
         public string UserName { get; set; }

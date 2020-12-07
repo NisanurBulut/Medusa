@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using IBlog.Entities;
 
 namespace IBlog.DataAccess.Context
 {
@@ -13,5 +14,11 @@ namespace IBlog.DataAccess.Context
         {
             base.OnModelCreating(modelBuilder);
         }
+        public DbSet<AppUserEntity> tAppUser { get; set; }
+        public DbSet<CommentEntity> tComment { get; set; }
+        public DbSet<BlogEntity> tBlog { get; set; }
+        public DbSet<CategoryEntity> tCategory { get; set; }
+        public DbSet<CategoryBlogEntity> tCategoryBlog { get; set; }
+
     }
 }
