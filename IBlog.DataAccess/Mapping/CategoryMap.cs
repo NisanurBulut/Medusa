@@ -1,9 +1,6 @@
 ﻿using IBlog.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace IBlog.DataAccess.Mapping
 {
@@ -14,6 +11,8 @@ namespace IBlog.DataAccess.Mapping
             builder.ToTable("tCategory", "dbo");
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Id).ValueGeneratedOnAdd();
+            builder.Property(a => a.Name).IsRequired().HasMaxLength(100);
+            builder.HasMany(a => a.CategoryBlogs).WithOne(a => a.Category).HasForeignKey(a => a.CategoryId);
         }
     }
 }
