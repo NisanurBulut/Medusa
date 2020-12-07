@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace IBlog.Entities.Category
+namespace IBlog.Entities
 {
-   public class Category
+    public interface ITable
     {
         public int Id { get; set; }
-        public string Name { get; set; }
     }
 }
