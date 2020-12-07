@@ -13,6 +13,7 @@ namespace IBlog.DataAccess.Interface
         Task<List<tEntity>> GetAllAsync<tKey>(Expression<Func<tEntity, tKey>> keySelector);
         Task<List<tEntity>> GetAllAsync<tKey>(Expression<Func<tEntity, bool>> filter, Expression<Func<tEntity, tKey>> keySelector);
         Task<tEntity> GetAsync(Expression<Func<tEntity, bool>> filter);
+        Task<tEntity> FindByIdAsync(int id);
         Task AddAsync(tEntity item);
 
         Task UpdateAsync(tEntity item);

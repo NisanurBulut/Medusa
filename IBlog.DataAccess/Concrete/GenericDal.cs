@@ -20,6 +20,12 @@ namespace IBlog.DataAccess.Concrete
 
         }
 
+        public async Task<tEntity> FindByIdAsync(int id)
+        {
+            using var context = new DatabaseContext();
+            return await context.FindAsync<tEntity>(id);
+        }
+
         public async Task<List<tEntity>> GetAllAsync()
         {
             using var context = new DatabaseContext();

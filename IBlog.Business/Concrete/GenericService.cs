@@ -20,32 +20,17 @@ namespace IBlog.Business.Concrete
             await _genericDal.AddAsync(item);
         }
 
+        public async Task<tEntity> FindByIdAsync(int id)
+        {
+           return  await _genericDal.FindByIdAsync(id);
+        }
+
         public async Task<List<tEntity>> GetAllAsync()
         {
             return await _genericDal.GetAllAsync();
         }
 
-        public async Task<List<tEntity>> GetAllAsync(Expression<Func<tEntity, bool>> filter)
-        {
-            return await _genericDal.GetAllAsync(filter);
-        }
-
-        public async Task<List<tEntity>> GetAllAsync<tKey>(Expression<Func<tEntity, tKey>> keySelector)
-        {
-            return await _genericDal.GetAllAsync(keySelector);
-
-        }
-
-        public async Task<List<tEntity>> GetAllAsync<tKey>(Expression<Func<tEntity, bool>> filter, Expression<Func<tEntity, tKey>> keySelector)
-        {
-            return await _genericDal.GetAllAsync(filter, keySelector);
-        }
-
-        public async Task<tEntity> GetAsync(Expression<Func<tEntity, bool>> filter)
-        {
-            return await _genericDal.GetAsync(filter);
-        }
-
+       
         public async Task RemoveAsync(tEntity item)
         {
             await _genericDal.RemoveAsync(item);
