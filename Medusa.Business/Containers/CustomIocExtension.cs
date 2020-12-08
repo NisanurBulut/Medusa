@@ -1,10 +1,8 @@
 ﻿using Medusa.Business.Concrete;
+using Medusa.Business.Interface;
 using Medusa.DataAccess.Concrete;
 using Medusa.DataAccess.Interface;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Medusa.Business.Containers
 {
@@ -15,6 +13,8 @@ namespace Medusa.Business.Containers
             services.AddScoped(typeof(IGenericDal<>),typeof(GenericDal<>));
             services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
 
+            services.AddScoped<IBlogService,BlogService>();
+            services.AddScoped<IBlogDal, BlogRepository>();
         }
     }
 }

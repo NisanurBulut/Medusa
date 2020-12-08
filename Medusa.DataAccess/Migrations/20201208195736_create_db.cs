@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Medusa.DataAccess.Migrations
 {
-    public partial class createdb : Migration
+    public partial class create_db : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

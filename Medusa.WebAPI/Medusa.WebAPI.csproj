@@ -8,5 +8,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Medusa.Business\Medusa.Business.csproj" />
+  </ItemGroup>
+
 
 </Project>

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Medusa.DataAccess.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20201207195556_createdb")]
-    partial class createdb
+    [Migration("20201208195736_create_db")]
+    partial class create_db
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

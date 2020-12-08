@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Medusa.DataAccess.Interface
 {
-    public interface MedusaDal:IGenericDal<BlogEntity>
+    public interface IBlogDal:IGenericDal<BlogEntity>
     {
     }
 }
