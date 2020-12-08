@@ -1,4 +1,5 @@
 ﻿using Medusa.Business.Interface;
+using Medusa.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -25,6 +26,13 @@ namespace Medusa.WebAPI.Controllers
         public async Task<IActionResult> GetBlogById(int id)
         {
             return Ok(await _blogService.FindByIdAsync(id));
+        }
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<IActionResult> CreateBlog(BlogEntity model)
+        {
+            await _blogService.AddAsync(model);
+            return Created("", model);
         }
     }
 }
