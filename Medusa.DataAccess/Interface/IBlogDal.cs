@@ -7,5 +7,6 @@ namespace Medusa.DataAccess.Interface
 {
     public interface IBlogDal:IGenericDal<BlogEntity>
     {
+       
     }
 }
