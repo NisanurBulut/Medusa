@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Medusa.DataAccess\Medusa.DataAccess.csproj" />
+    <ProjectReference Include="..\Medusa.Entities\Medusa.Entities.csproj" />
+  </ItemGroup>
+
+</Project>
