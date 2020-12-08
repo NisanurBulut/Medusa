@@ -1,6 +1,8 @@
 ﻿using Medusa.Business.Interface;
 using Medusa.DataAccess.Interface;
 using Medusa.Entities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Medusa.Business.Concrete
 {
@@ -10,6 +12,11 @@ namespace Medusa.Business.Concrete
         public CategoryService(IGenericDal<CategoryEntity> genericDal) : base(genericDal)
         {
             _genericDal = genericDal;
+        }
+
+        public async Task<List<CategoryEntity>> GetAllSortedByIdTime()
+        {
+            return await _genericDal.GetAllAsync(a => a.Id);
         }
     }
 }
