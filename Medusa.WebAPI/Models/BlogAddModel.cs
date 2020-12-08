@@ -1,16 +1,17 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Medusa.DataTransferObject
+namespace Medusa.WebAPI.Models
 {
-    public class BlogDto : IDto
+    public class BlogAddModel
     {
-        public int Id { get; set; }
         public string Title { get; set; }
         public string ShortDescription { get; set; }
         public string LongDescription { get; set; }
-        public DateTime PostedTime { get; set; }
         public string ImagePath { get; set; }
+        public IFormFile Image { get; set; }
     }
 }
