@@ -14,10 +14,17 @@ namespace Medusa.WebAPI.Controllers
         {
             this._blogService = blogService;
         }
+        [Route("[action]")]
         [HttpGet]
         public async Task<IActionResult> GetAllBlogs()
         {
             return Ok(await _blogService.GetAllSortedByPostedTimeAsync());
+        }
+        [Route("[action]")]
+        [HttpGet]
+        public async Task<IActionResult> GetBlogById(int id)
+        {
+            return Ok(await _blogService.FindByIdAsync(id));
         }
     }
 }
