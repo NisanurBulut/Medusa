@@ -42,5 +42,12 @@ namespace Medusa.WebAPI.Controllers
             await _blogService.UpdateAsync(model);
             return NoContent();
         }
+        [Route("[action]")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteBlog(BlogEntity model)
+        {
+            await _blogService.RemoveAsync(model);
+            return NoContent();
+        }
     }
 }
