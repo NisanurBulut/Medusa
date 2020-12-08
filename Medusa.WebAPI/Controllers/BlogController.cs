@@ -34,5 +34,13 @@ namespace Medusa.WebAPI.Controllers
             await _blogService.AddAsync(model);
             return Created("", model);
         }
+        [Route("[action]")]
+        [HttpPut]
+        public async Task<IActionResult> UpdateBlog(BlogEntity model, int id)
+        {
+            if (model.Id != id) return BadRequest("Geçersiz id bilgisi");
+            await _blogService.UpdateAsync(model);
+            return NoContent();
+        }
     }
 }
