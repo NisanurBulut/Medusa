@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Medusa.WebAPI.Models
 {
-    public class BlogAddModel
+    public class BlogUpdateModel
     {
+        public int Id { get; set; }
         public int AppUserId { get; set; }
         public string Title { get; set; }
         public string ShortDescription { get; set; }
