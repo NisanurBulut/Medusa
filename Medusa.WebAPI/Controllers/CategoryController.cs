@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Medusa.Business.Interface;
 using Medusa.DataTransferObject;
+using Medusa.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -30,5 +31,22 @@ namespace Medusa.WebAPI.Controllers
         {
             return Ok(_mapper.Map<CategoryDto>(await _categoryService.FindByIdAsync(id)));
         }
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<IActionResult> CreateCategory(CategoryAddDto model)
+        {
+            await _categoryService.AddAsync(_mapper.Map<CategoryAddDto, CategoryEntity>(model));
+            return Created("", model);
+        }
+        [Route("[action]")]
+        [HttpPut]
+        public async Task<IActionResult> UpdateCategory(CategoryUpdateDto model, int id)
+        {
+            if (model.Id != id) return BadRequest("Geçersiz id bilgisi");
+            var uploadModel = await UploadFile(model.Image, "image/jpeg");
+
+            await _categoryService.UpdateAsync(_mapper.Map<CategoryUpdateDto, CategoryEntity>(model));
+            return NoContent();
+
+        }
     }
-}
