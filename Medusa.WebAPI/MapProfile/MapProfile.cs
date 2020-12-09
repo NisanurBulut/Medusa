@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Medusa.Entities;
 using Medusa.DataTransferObject;
+using Medusa.Entities;
 using Medusa.WebAPI.Models;
 namespace Medusa.WebAPI.MapProfile
 {

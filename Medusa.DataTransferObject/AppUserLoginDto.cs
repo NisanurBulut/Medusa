@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Medusa.DataTransferObject.Concrete
+﻿namespace Medusa.DataTransferObject.Concrete
 {
     public class AppUserLoginDto:IDto
     {

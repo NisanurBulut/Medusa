@@ -1,6 +1,10 @@
-﻿using Medusa.Business.Interface;
+﻿using AutoMapper;
+using Medusa.Business.Interface;
+using Medusa.DataTransferObject;
 using Medusa.Entities;
+using Medusa.WebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Medusa.WebAPI.Controllers
@@ -10,36 +14,37 @@ namespace Medusa.WebAPI.Controllers
     public class BlogController : ControllerBase
     {
         private readonly IBlogService _blogService;
-
-        public BlogController(IBlogService blogService)
+        private readonly IMapper _mapper;
+        public BlogController(IBlogService blogService, IMapper mapper)
         {
+            this._mapper = mapper;
             this._blogService = blogService;
         }
         [Route("[action]")]
         [HttpGet]
         public async Task<IActionResult> GetAllBlogs()
         {
-            return Ok(await _blogService.GetAllSortedByPostedTimeAsync());
+            return Ok(_mapper.Map<List<BlogDto>>(await _blogService.GetAllSortedByPostedTimeAsync()));
         }
         [Route("[action]")]
         [HttpGet]
         public async Task<IActionResult> GetBlogById(int id)
         {
-            return Ok(await _blogService.FindByIdAsync(id));
+            return Ok(_mapper.Map<BlogEntity,BlogDto>(await _blogService.FindByIdAsync(id)));
         }
         [Route("[action]")]
         [HttpPost]
-        public async Task<IActionResult> CreateBlog(BlogEntity model)
+        public async Task<IActionResult> CreateBlog(BlogAddModel model)
         {
-            await _blogService.AddAsync(model);
+            await _blogService.AddAsync(_mapper.Map<BlogAddModel, BlogEntity>(model));
             return Created("", model);
         }
         [Route("[action]")]
         [HttpPut]
-        public async Task<IActionResult> UpdateBlog(BlogEntity model, int id)
+        public async Task<IActionResult> UpdateBlog(BlogUpdateModel model, int id)
         {
             if (model.Id != id) return BadRequest("Geçersiz id bilgisi");
-            await _blogService.UpdateAsync(model);
+            await _blogService.UpdateAsync(_mapper.Map<BlogUpdateModel, BlogEntity>(model));
             return NoContent();
         }
         [Route("[action]")]
