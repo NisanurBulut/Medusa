@@ -13,7 +13,7 @@ namespace Medusa.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BlogController : ControllerBase
+    public class BlogController : BaseController
     {
         private readonly IBlogService _blogService;
         private readonly IMapper _mapper;
@@ -32,42 +32,50 @@ namespace Medusa.WebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetBlogById(int id)
         {
-            return Ok(_mapper.Map<BlogEntity,BlogDto>(await _blogService.FindByIdAsync(id)));
+            return Ok(_mapper.Map<BlogEntity, BlogDto>(await _blogService.FindByIdAsync(id)));
         }
         [Route("[action]")]
         [HttpPost]
-        public async Task<IActionResult> CreateBlog([FromForm]BlogAddModel model)
+        public async Task<IActionResult> CreateBlog([FromForm] BlogAddModel model)
         {
-            if (model.Image != null)
+            var uploadModel = await UploadFile(model.Image, "image/jpeg");
+            if (uploadModel.UploadState == Enums.UploadState.success)
             {
-                if (model.Image.ContentType != "image/jpeg") return BadRequest("Uygunsuz dosya türü");
-                var newName = Guid.NewGuid() + Path.GetExtension(model.Image.FileName);
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/" + newName);
-                var stream = new FileStream(path, FileMode.Create);
-
-                await model.Image.CopyToAsync(stream);
-                model.ImagePath = newName;
+                await _blogService.AddAsync(_mapper.Map<BlogAddModel, BlogEntity>(model));
+                return Created("", model);
             }
-            await _blogService.AddAsync(_mapper.Map<BlogAddModel, BlogEntity>(model));
-            return Created("", model);
+            else if (uploadModel.UploadState == Enums.UploadState.notexists)
+            {
+                await _blogService.AddAsync(_mapper.Map<BlogAddModel, BlogEntity>(model));
+                return Created("", model);
+            }
+            else
+            {
+                return BadRequest(uploadModel.ErrorMessage);
+            }
+
         }
         [Route("[action]")]
         [HttpPut]
-        public async Task<IActionResult> UpdateBlog([FromForm]BlogUpdateModel model, int id)
+        public async Task<IActionResult> UpdateBlog([FromForm] BlogUpdateModel model, int id)
         {
             if (model.Id != id) return BadRequest("Geçersiz id bilgisi");
-            if (model.Image != null)
-            {
-                if (model.Image.ContentType != "image/jpeg") return BadRequest("Uygunsuz dosya türü");
-                var newName = Guid.NewGuid() + Path.GetExtension(model.Image.FileName);
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/" + newName);
-                var stream = new FileStream(path, FileMode.Create);
+            var uploadModel = await UploadFile(model.Image, "image/jpeg");
 
-                await model.Image.CopyToAsync(stream);
-                model.ImagePath = newName;
+            if (uploadModel.UploadState == Enums.UploadState.success)
+            {
+                await _blogService.UpdateAsync(_mapper.Map<BlogUpdateModel, BlogEntity>(model));
+                return NoContent();
             }
-            await _blogService.UpdateAsync(_mapper.Map<BlogUpdateModel, BlogEntity>(model));
-            return NoContent();
+            else if (uploadModel.UploadState == Enums.UploadState.notexists)
+            {
+                await _blogService.UpdateAsync(_mapper.Map<BlogUpdateModel, BlogEntity>(model));
+                return NoContent();
+            }
+            else
+            {
+                return BadRequest(uploadModel.ErrorMessage);
+            }
         }
         [Route("[action]")]
         [HttpDelete]
