@@ -24,5 +24,11 @@ namespace Medusa.WebAPI.Controllers
         {
             return Ok(_mapper.Map<List<CategoryDto>>(await _categoryService.GetAllSortedById()));
         }
+        [Route("[action]")]
+        [HttpGet]
+        public async Task<IActionResult> GetCategoryById(int id)
+        {
+            return Ok(_mapper.Map<CategoryDto>(await _categoryService.FindByIdAsync(id)));
+        }
     }
 }
