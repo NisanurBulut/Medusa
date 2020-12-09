@@ -7,6 +7,6 @@ namespace Medusa.Business.Interface
     // CategoryEntity tip için IGenericDal dan kalıtsal geç
     public interface ICategoryService : IGenericService<CategoryEntity>
     {
-        Task<List<CategoryEntity>> GetAllSortedByIdTime();
+        Task<List<CategoryEntity>> GetAllSortedById();
     }
 }

@@ -14,7 +14,7 @@ namespace Medusa.Business.Concrete
             _genericDal = genericDal;
         }
 
-        public async Task<List<CategoryEntity>> GetAllSortedByIdTime()
+        public async Task<List<CategoryEntity>> GetAllSortedById()
         {
             return await _genericDal.GetAllAsync(a => a.Id);
         }
