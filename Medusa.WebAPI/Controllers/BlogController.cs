@@ -4,7 +4,9 @@ using Medusa.DataTransferObject;
 using Medusa.Entities;
 using Medusa.WebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Medusa.WebAPI.Controllers
@@ -34,16 +36,36 @@ namespace Medusa.WebAPI.Controllers
         }
         [Route("[action]")]
         [HttpPost]
-        public async Task<IActionResult> CreateBlog(BlogAddModel model)
+        public async Task<IActionResult> CreateBlog([FromForm]BlogAddModel model)
         {
+            if (model.Image != null)
+            {
+                if (model.Image.ContentType != "image/jpeg") return BadRequest("Uygunsuz dosya türü");
+                var newName = Guid.NewGuid() + Path.GetExtension(model.Image.FileName);
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/" + newName);
+                var stream = new FileStream(path, FileMode.Create);
+
+                await model.Image.CopyToAsync(stream);
+                model.ImagePath = newName;
+            }
             await _blogService.AddAsync(_mapper.Map<BlogAddModel, BlogEntity>(model));
             return Created("", model);
         }
         [Route("[action]")]
         [HttpPut]
-        public async Task<IActionResult> UpdateBlog(BlogUpdateModel model, int id)
+        public async Task<IActionResult> UpdateBlog([FromForm]BlogUpdateModel model, int id)
         {
             if (model.Id != id) return BadRequest("Geçersiz id bilgisi");
+            if (model.Image != null)
+            {
+                if (model.Image.ContentType != "image/jpeg") return BadRequest("Uygunsuz dosya türü");
+                var newName = Guid.NewGuid() + Path.GetExtension(model.Image.FileName);
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/" + newName);
+                var stream = new FileStream(path, FileMode.Create);
+
+                await model.Image.CopyToAsync(stream);
+                model.ImagePath = newName;
+            }
             await _blogService.UpdateAsync(_mapper.Map<BlogUpdateModel, BlogEntity>(model));
             return NoContent();
         }
