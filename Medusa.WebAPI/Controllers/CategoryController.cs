@@ -43,10 +43,16 @@ namespace Medusa.WebAPI.Controllers
         public async Task<IActionResult> UpdateCategory(CategoryUpdateDto model, int id)
         {
             if (model.Id != id) return BadRequest("Geçersiz id bilgisi");
-            var uploadModel = await UploadFile(model.Image, "image/jpeg");
-
+            
             await _categoryService.UpdateAsync(_mapper.Map<CategoryUpdateDto, CategoryEntity>(model));
             return NoContent();
-
+        }
+        [Route("[action]")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCategory(int id)
+        {
+            await _categoryService.RemoveAsync(new CategoryEntity() { Id = id });
+            return NoContent();
         }
     }
+}
