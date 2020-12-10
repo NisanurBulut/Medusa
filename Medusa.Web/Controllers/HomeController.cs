@@ -21,8 +21,7 @@ namespace Medusa.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            using var httpclient = new HttpClient();
-            await httpclient.GetAsync("");
+            
             return View();
         }
 
