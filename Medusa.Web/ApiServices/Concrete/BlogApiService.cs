@@ -17,7 +17,7 @@ namespace Medusa.WebUI.ApiServices.Concrete
             _httpClient = httpClient;
             _httpClient.BaseAddress = new Uri("http://localhost:55315/api/blog/");
         }
-        public async Task<List<BlogListModel>> GetAllasync()
+        public async Task<List<BlogListModel>> GetAllAsync()
         {
             var responseMessage = await _httpClient.GetAsync("");
             if (responseMessage.IsSuccessStatusCode)

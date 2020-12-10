@@ -8,6 +8,6 @@ namespace Medusa.WebUI.ApiServices.Interfaces
 {
     public interface IBlogApiService
     {
-        Task<List<BlogListModel>> GetAllasync();
+        Task<List<BlogListModel>> GetAllAsync();
     }
 }

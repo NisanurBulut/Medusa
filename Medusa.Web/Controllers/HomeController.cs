@@ -5,8 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Medusa.Web.Models;
 using System.Net.Http;
+using Medusa.WebUI.ApiServices.Interfaces;
 
 namespace Medusa.Web.Controllers
 {
@@ -14,15 +14,17 @@ namespace Medusa.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private IBlogApiService _blogApiService { get; }
+
+        public HomeController(IBlogApiService blogApiService,ILogger<HomeController> logger)
         {
+            _blogApiService = blogApiService;
             _logger = logger;
         }
 
         public async Task<IActionResult> Index()
         {
-            
-            return View();
+            return View(await _blogApiService.GetAllAsync()) ;
         }
 
         public IActionResult Privacy()
@@ -30,10 +32,6 @@ namespace Medusa.Web.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+       
     }
 }
