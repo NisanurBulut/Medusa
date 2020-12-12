@@ -28,8 +28,9 @@ namespace Medusa.WebAPI.Controllers
         {
             return Ok(_mapper.Map<List<BlogDto>>(await _blogService.GetAllSortedByPostedTimeAsync()));
         }
-        [Route("[action]")]
-        [HttpGet]
+       
+        [HttpGet("[action]")]
+        [ServiceFilter(typeof(ValidIdModel<BlogEntity>))]
         public async Task<IActionResult> GetBlogById(int id)
         {
             return Ok(_mapper.Map<BlogEntity, BlogDto>(await _blogService.FindByIdAsync(id)));
@@ -85,6 +86,7 @@ namespace Medusa.WebAPI.Controllers
 
         [HttpDelete("[action]")]
         [Authorize]
+        [ServiceFilter(typeof(ValidIdModel<BlogEntity>))]
         public async Task<IActionResult> DeleteBlog(int id)
         {
             await _blogService.RemoveAsync(new BlogEntity() { Id = id });

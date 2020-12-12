@@ -27,8 +27,9 @@ namespace Medusa.WebAPI.Controllers
         {
             return Ok(_mapper.Map<List<CategoryDto>>(await _categoryService.GetAllSortedById()));
         }
-        [Route("[action]")]
-        [HttpGet]
+
+        [HttpGet("[action]")]
+        [ServiceFilter(typeof(ValidIdModel<CategoryEntity>))]
         public async Task<IActionResult> GetCategoryById(int id)
         {
             return Ok(_mapper.Map<CategoryDto>(await _categoryService.FindByIdAsync(id)));
@@ -53,9 +54,10 @@ namespace Medusa.WebAPI.Controllers
             await _categoryService.UpdateAsync(_mapper.Map<CategoryUpdateDto, CategoryEntity>(model));
             return NoContent();
         }
-        [Route("[action]")]
-        [HttpDelete]
+
+        [HttpDelete("[action]")]
         [Authorize]
+        [ServiceFilter(typeof(ValidIdModel<CategoryEntity>))]
         public async Task<IActionResult> DeleteCategory(int id)
         {
             await _categoryService.RemoveAsync(new CategoryEntity() { Id = id });

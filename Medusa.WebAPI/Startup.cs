@@ -1,6 +1,7 @@
 using AutoMapper;
 using Medusa.Business.Containers;
 using Medusa.Business.StringInfo;
+using Medusa.WebAPI.CustomFilters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,6 +28,8 @@ namespace Medusa.WebAPI
         {
             services.AddAutoMapper(typeof(Startup));
             services.AddDependecy();
+            services.AddScoped(typeof(ValidIdModel<>));
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>
                 {
