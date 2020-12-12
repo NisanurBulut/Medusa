@@ -15,11 +15,11 @@ namespace Medusa.WebUI.ApiServices.Concrete
         public BlogApiService(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            _httpClient.BaseAddress = new Uri("http://localhost:55315/api/blog/");
+            _httpClient.BaseAddress = new Uri("http://localhost:55315/api/blog");
         }
         public async Task<List<BlogListModel>> GetAllAsync()
         {
-            var responseMessage = await _httpClient.GetAsync("/GetAllBlogs");
+            var responseMessage = await _httpClient.GetAsync(_httpClient.BaseAddress+ "/GetAllBlogs");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var result = JsonConvert.DeserializeObject<List<BlogListModel>>(await responseMessage.Content.ReadAsStringAsync());

@@ -27,11 +27,9 @@ namespace Medusa.Web.Controllers
             return View(await _blogApiService.GetAllAsync()) ;
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> BlogDetail(int id)
         {
-            return View();
+            return View(await _blogApiService.GetAllAsync());
         }
-
-       
     }
 }

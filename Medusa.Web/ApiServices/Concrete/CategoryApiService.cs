@@ -15,11 +15,11 @@ namespace Medusa.WebUI.ApiServices.Concrete
         public CategoryApiService(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            _httpClient.BaseAddress = new Uri("http://localhost:55315/api/category/");
+            _httpClient.BaseAddress = new Uri("http://localhost:55315/api/category");
         }
         public async Task<List<CategoryListModel>> GetAllAsync()
         {
-            var responseMessage = await _httpClient.GetAsync("/GetAllSortedById");
+            var responseMessage = await _httpClient.GetAsync(_httpClient.BaseAddress+"/GetAllSortedById");
             if (responseMessage.IsSuccessStatusCode)
             {
                 return JsonConvert.DeserializeObject<List<CategoryListModel>>(await responseMessage.Content.ReadAsStringAsync());
