@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Medusa.DataAccess\Medusa.DataAccess.csproj" />
+    <ProjectReference Include="..\Medusa.DataTransferObject\Medusa.DataTransferObject.csproj" />
     <ProjectReference Include="..\Medusa.Entities\Medusa.Entities.csproj" />
   </ItemGroup>
 
