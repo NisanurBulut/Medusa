@@ -15,6 +15,9 @@ namespace Medusa.Business.Containers
 
             services.AddScoped<IBlogService,BlogService>();
             services.AddScoped<IBlogDal, BlogRepository>();
+
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ICategoryDal, CategoryRepository>();
         }
     }
 }

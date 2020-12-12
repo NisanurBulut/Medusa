@@ -19,10 +19,11 @@ namespace Medusa.WebUI.ApiServices.Concrete
         }
         public async Task<List<BlogListModel>> GetAllAsync()
         {
-            var responseMessage = await _httpClient.GetAsync("");
+            var responseMessage = await _httpClient.GetAsync("/GetAllBlogs");
             if (responseMessage.IsSuccessStatusCode)
             {
-                return JsonConvert.DeserializeObject<List<BlogListModel>>(await responseMessage.Content.ReadAsStringAsync());
+                var result = JsonConvert.DeserializeObject<List<BlogListModel>>(await responseMessage.Content.ReadAsStringAsync());
+                return result ?? new List<BlogListModel>();
             }
             return null;
         }

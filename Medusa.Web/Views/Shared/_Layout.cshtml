@@ -67,25 +67,7 @@
                 </div>
 
                 <!-- Categories Widget -->
-                <div class="card my-4">
-                    <h5 class="card-header">Categories</h5>
-                    
-                        <div class="list-group">
-                            <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                                Cras justo odio
-                                <span class="badge badge-primary badge-pill">14</span>
-                            </a>
-                            <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                                Dapibus ac facilisis in
-                                <span class="badge badge-primary badge-pill">2</span>
-                            </a>
-                            <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                                Morbi leo risus
-                                <span class="badge badge-primary badge-pill">1</span>
-                            </a>
-                        </div>
-                    
-                </div>
+               @await Component.InvokeAsync("CategoryList");
 
                 <!-- Side Widget -->
                 <div class="card my-4">
