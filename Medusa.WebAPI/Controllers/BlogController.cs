@@ -4,9 +4,7 @@ using Medusa.DataTransferObject;
 using Medusa.Entities;
 using Medusa.WebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace Medusa.WebAPI.Controllers
