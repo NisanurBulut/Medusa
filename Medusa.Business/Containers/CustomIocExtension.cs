@@ -1,9 +1,12 @@
-﻿using Medusa.Business.Concrete;
+﻿using FluentValidation;
+using Medusa.Business.Concrete;
 using Medusa.Business.Interface;
 using Medusa.Business.Tools;
 using Medusa.DataAccess.Concrete;
 using Medusa.DataAccess.Interface;
 using Microsoft.Extensions.DependencyInjection;
+using Medusa.DataTransferObject;
+using Medusa.Business.ValidationRules;
 
 namespace Medusa.Business.Containers
 {
@@ -24,6 +27,13 @@ namespace Medusa.Business.Containers
             services.AddScoped<IAppUserDal, AppUserRepository>();
 
             services.AddScoped<IJwtService, JwtManager>();
+
+            services.AddTransient<IValidator<AppUserLoginDto>, AppUserValidator>();
+            services.AddTransient<IValidator<CategoryBlogDto>, CategoryBlogValidator>();
+            services.AddTransient<IValidator<CategoryAddDto>, CategoryAddValidator>();
+            services.AddTransient<IValidator<CategoryUpdateDto>, CategoryUpdateValidator>();
+
+
         }
     }
 }
