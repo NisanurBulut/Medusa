@@ -11,7 +11,7 @@
         <div class="card-body">
             <h2 class="card-title">@blog.Title</h2>
             <p class="card-text">@blog.ShortDescription</p>
-            <a href="#" class="btn btn-primary">Devamını oku &rarr;</a>
+            <a asp-action="BlogDetail" asp-route-id="@blog.Id" class="btn btn-primary">Devamını oku &rarr;</a>
         </div>
         <div class="card-footer text-muted">
             @blog.PostedTime.ToLongDateString()         
