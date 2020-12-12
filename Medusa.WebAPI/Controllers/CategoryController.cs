@@ -2,6 +2,7 @@
 using Medusa.Business.Interface;
 using Medusa.DataTransferObject;
 using Medusa.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -33,6 +34,7 @@ namespace Medusa.WebAPI.Controllers
         }
         [Route("[action]")]
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateCategory(CategoryAddDto model)
         {
             await _categoryService.AddAsync(_mapper.Map<CategoryAddDto, CategoryEntity>(model));
@@ -40,6 +42,7 @@ namespace Medusa.WebAPI.Controllers
         }
         [Route("[action]")]
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> UpdateCategory(CategoryUpdateDto model, int id)
         {
             if (model.Id != id) return BadRequest("Geçersiz id bilgisi");
@@ -49,6 +52,7 @@ namespace Medusa.WebAPI.Controllers
         }
         [Route("[action]")]
         [HttpDelete]
+        [Authorize]
         public async Task<IActionResult> DeleteCategory(int id)
         {
             await _categoryService.RemoveAsync(new CategoryEntity() { Id = id });

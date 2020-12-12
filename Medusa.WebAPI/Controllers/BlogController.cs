@@ -3,6 +3,7 @@ using Medusa.Business.Interface;
 using Medusa.DataTransferObject;
 using Medusa.Entities;
 using Medusa.WebAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -34,6 +35,7 @@ namespace Medusa.WebAPI.Controllers
         }
         [Route("[action]")]
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateBlog([FromForm] BlogAddModel model)
         {
             var uploadModel = await UploadFile(model.Image, "image/jpeg");
@@ -55,6 +57,7 @@ namespace Medusa.WebAPI.Controllers
         }
         [Route("[action]")]
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> UpdateBlog([FromForm] BlogUpdateModel model, int id)
         {
             if (model.Id != id) return BadRequest("Geçersiz id bilgisi");
@@ -77,6 +80,7 @@ namespace Medusa.WebAPI.Controllers
         }
         [Route("[action]")]
         [HttpDelete]
+        [Authorize]
         public async Task<IActionResult> DeleteBlog(int id)
         {
             await _blogService.RemoveAsync(new BlogEntity() { Id = id });

@@ -1,5 +1,6 @@
 ﻿using Medusa.Business.Concrete;
 using Medusa.Business.Interface;
+using Medusa.Business.Tools;
 using Medusa.DataAccess.Concrete;
 using Medusa.DataAccess.Interface;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +19,11 @@ namespace Medusa.Business.Containers
 
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ICategoryDal, CategoryRepository>();
+
+            services.AddScoped<IAppUserService, AppUserService>();
+            services.AddScoped<IAppUserDal, AppUserRepository>();
+
+            services.AddScoped<IJwtService, JwtManager>();
         }
     }
 }
