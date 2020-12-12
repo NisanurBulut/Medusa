@@ -9,6 +9,6 @@ namespace Medusa.Business.Interface
 {
    public interface IAppUserService:IGenericService<AppUserEntity>
     {
-        Task<AppUserEntity> CheckUser(AppUserLoginDto appUserLoginDto);
+        Task<AppUserEntity> CheckUserAsync(AppUserLoginDto appUserLoginDto);
     }
 }

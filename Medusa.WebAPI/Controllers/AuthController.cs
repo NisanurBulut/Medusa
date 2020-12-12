@@ -21,7 +21,7 @@ namespace Medusa.WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> SignIn(AppUserLoginDto appUserLoginDto)
         {
-            var user = await _appUserService.CheckUser(appUserLoginDto);
+            var user = await _appUserService.CheckUserAsync(appUserLoginDto);
             if (user != null)
             {
                 return Created("", _jwtService.GenerateJwt(user));

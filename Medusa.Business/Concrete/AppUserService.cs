@@ -14,7 +14,7 @@ namespace Medusa.Business.Concrete
             _genericDal = genericDal;
         }
 
-        public async Task<AppUserEntity> CheckUser(AppUserLoginDto appUserLoginDto)
+        public async Task<AppUserEntity> CheckUserAsync(AppUserLoginDto appUserLoginDto)
         {
             return await _genericDal.GetAsync(a => a.UserName == appUserLoginDto.UserName && a.Password == appUserLoginDto.Password);
         }
