@@ -11,6 +11,6 @@ namespace Medusa.Business.Interface
         Task<List<BlogEntity>> GetAllSortedByPostedTimeAsync();
         Task AddToCategoryAsync(CategoryBlogDto categoryBlogDto);
         Task RemoveToCategoryAsync(CategoryBlogDto categoryBlogDto);
-
+        Task<List<BlogEntity>> GetAllByCategoryIdAsync(int id);
     }
 }

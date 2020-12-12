@@ -109,5 +109,12 @@ namespace Medusa.WebAPI.Controllers
             await _blogService.RemoveToCategoryAsync(model);
             return NoContent();
         }
+        [HttpGet("[action]/{id}")]
+        [ServiceFilter(typeof(ValidIdModel<CategoryEntity>))]
+        public async Task<IActionResult> GetAllByCategoryIdAsync(int id)
+        {
+            return Ok(await _blogService.GetAllByCategoryIdAsync(id));
+        }
+        
     }
 }
