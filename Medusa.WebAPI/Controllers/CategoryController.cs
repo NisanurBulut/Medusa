@@ -2,6 +2,7 @@
 using Medusa.Business.Interface;
 using Medusa.DataTransferObject;
 using Medusa.Entities;
+using Medusa.WebAPI.CustomFilters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -32,17 +33,19 @@ namespace Medusa.WebAPI.Controllers
         {
             return Ok(_mapper.Map<CategoryDto>(await _categoryService.FindByIdAsync(id)));
         }
-        [Route("[action]")]
-        [HttpPost]
+     
+        [HttpPost("[action]")]
         [Authorize]
+        [ValidModel]
         public async Task<IActionResult> CreateCategory(CategoryAddDto model)
         {
             await _categoryService.AddAsync(_mapper.Map<CategoryAddDto, CategoryEntity>(model));
             return Created("", model);
         }
-        [Route("[action]")]
-        [HttpPut]
+
+        [HttpPut("[action]")]
         [Authorize]
+        [ValidModel]
         public async Task<IActionResult> UpdateCategory(CategoryUpdateDto model, int id)
         {
             if (model.Id != id) return BadRequest("Geçersiz id bilgisi");

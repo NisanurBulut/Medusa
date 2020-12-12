@@ -2,6 +2,7 @@
 using Medusa.Business.Interface;
 using Medusa.DataTransferObject;
 using Medusa.Entities;
+using Medusa.WebAPI.CustomFilters;
 using Medusa.WebAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -33,9 +34,10 @@ namespace Medusa.WebAPI.Controllers
         {
             return Ok(_mapper.Map<BlogEntity, BlogDto>(await _blogService.FindByIdAsync(id)));
         }
-        [Route("[action]")]
-        [HttpPost]
+
+        [HttpPost("[action]")]
         [Authorize]
+        [ValidModel]
         public async Task<IActionResult> CreateBlog([FromForm] BlogAddModel model)
         {
             var uploadModel = await UploadFile(model.Image, "image/jpeg");
@@ -55,9 +57,11 @@ namespace Medusa.WebAPI.Controllers
             }
 
         }
-        [Route("[action]")]
-        [HttpPut]
+
+
+        [HttpPut("[action]")]
         [Authorize]
+        [ValidModel]
         public async Task<IActionResult> UpdateBlog([FromForm] BlogUpdateModel model, int id)
         {
             if (model.Id != id) return BadRequest("Geçersiz id bilgisi");
@@ -79,8 +83,7 @@ namespace Medusa.WebAPI.Controllers
             }
         }
 
-        [Route("[action]")]
-        [HttpDelete]
+        [HttpDelete("[action]")]
         [Authorize]
         public async Task<IActionResult> DeleteBlog(int id)
         {
@@ -90,6 +93,7 @@ namespace Medusa.WebAPI.Controllers
 
         [HttpPost("[action]")]
         [Authorize]
+        [ValidModel]
         public async Task<IActionResult> AddToCategory(CategoryBlogDto model)
         {
             await _blogService.AddToCategoryAsync(model);

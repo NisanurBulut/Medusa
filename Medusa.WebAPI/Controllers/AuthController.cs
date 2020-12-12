@@ -2,6 +2,7 @@
 using Medusa.Business.Interface;
 using Medusa.Business.Tools;
 using Medusa.DataTransferObject;
+using Medusa.WebAPI.CustomFilters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace Medusa.WebAPI.Controllers
             this._mapper = mapper;
         }
         [HttpPost]
+        [ValidModel]
         public async Task<IActionResult> SignIn(AppUserLoginDto appUserLoginDto)
         {
             var user = await _appUserService.CheckUserAsync(appUserLoginDto);
