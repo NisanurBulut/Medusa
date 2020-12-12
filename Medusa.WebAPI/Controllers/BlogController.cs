@@ -78,12 +78,29 @@ namespace Medusa.WebAPI.Controllers
                 return BadRequest(uploadModel.ErrorMessage);
             }
         }
+
         [Route("[action]")]
         [HttpDelete]
         [Authorize]
         public async Task<IActionResult> DeleteBlog(int id)
         {
             await _blogService.RemoveAsync(new BlogEntity() { Id = id });
+            return NoContent();
+        }
+
+        [HttpPost("[action]")]
+        [Authorize]
+        public async Task<IActionResult> AddToCategory(CategoryBlogDto model)
+        {
+            await _blogService.AddToCategoryAsync(model);
+            return Created("", model);
+        }
+
+        [HttpDelete("[action]")]
+        [Authorize]
+        public async Task<IActionResult> RemoveToCategory(CategoryBlogDto model)
+        {
+            await _blogService.RemoveToCategoryAsync(model);
             return NoContent();
         }
     }
