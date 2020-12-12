@@ -1,4 +1,5 @@
-﻿using Medusa.Entities;
+﻿using Medusa.DataTransferObject;
+using Medusa.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,5 +9,8 @@ namespace Medusa.Business.Interface
     public interface IBlogService : IGenericService<BlogEntity>
     {
         Task<List<BlogEntity>> GetAllSortedByPostedTimeAsync();
+        Task AddToCategoryAsync(CategoryBlogDto categoryBlogDto);
+        Task RemoveToCategoryAsync(CategoryBlogDto categoryBlogDto);
+
     }
 }
