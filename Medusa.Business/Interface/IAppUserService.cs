@@ -10,5 +10,6 @@ namespace Medusa.Business.Interface
    public interface IAppUserService:IGenericService<AppUserEntity>
     {
         Task<AppUserEntity> CheckUserAsync(AppUserLoginDto appUserLoginDto);
+        Task<AppUserEntity> FindByNameAsync(string userName);
     }
 }

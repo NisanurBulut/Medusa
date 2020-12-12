@@ -18,5 +18,10 @@ namespace Medusa.Business.Concrete
         {
             return await _genericDal.GetAsync(a => a.UserName == appUserLoginDto.UserName && a.Password == appUserLoginDto.Password);
         }
+
+        public async Task<AppUserEntity> FindByNameAsync(string userName)
+        {
+           return await _genericDal.GetAsync(a => a.UserName == userName);
+        }
     }
 }

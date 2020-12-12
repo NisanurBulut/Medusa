@@ -1,6 +1,8 @@
-﻿using Medusa.Business.Interface;
+﻿using AutoMapper;
+using Medusa.Business.Interface;
 using Medusa.Business.Tools;
 using Medusa.DataTransferObject;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -12,11 +14,12 @@ namespace Medusa.WebAPI.Controllers
     {
         private readonly IAppUserService _appUserService;
         private readonly IJwtService _jwtService;
-
-        public AuthController(IAppUserService appUserService, IJwtService jwtService)
+        private readonly IMapper _mapper;
+        public AuthController(IAppUserService appUserService, IJwtService jwtService, IMapper mapper)
         {
             this._appUserService = appUserService;
             this._jwtService = jwtService;
+            this._mapper = mapper;
         }
         [HttpPost]
         public async Task<IActionResult> SignIn(AppUserLoginDto appUserLoginDto)
@@ -30,6 +33,14 @@ namespace Medusa.WebAPI.Controllers
             {
                 return BadRequest("Kullanıcı adı veya şifre hatalı");
             }
+        }
+        [HttpGet("[action]")]
+        [Authorize]
+        public async Task<IActionResult> ActiveUser()
+        {
+            var user = await _appUserService.FindByNameAsync(User.Identity.Name);
+           
+            return Ok(_mapper.Map<AppUserDto>(user));
         }
     }
 }

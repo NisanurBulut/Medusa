@@ -28,6 +28,9 @@ namespace Medusa.WebAPI.MapProfile
 
             CreateMap<CategoryUpdateDto, CategoryEntity>();
             CreateMap<CategoryEntity, CategoryUpdateDto>();
+
+            CreateMap<AppUserEntity, AppUserDto>();
+            CreateMap<AppUserDto, AppUserEntity>();
         }
     }
 }
