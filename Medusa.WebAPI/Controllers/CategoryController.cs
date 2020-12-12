@@ -46,7 +46,7 @@ namespace Medusa.WebAPI.Controllers
         public async Task<IActionResult> UpdateCategory(CategoryUpdateDto model, int id)
         {
             if (model.Id != id) return BadRequest("Geçersiz id bilgisi");
-            
+
             await _categoryService.UpdateAsync(_mapper.Map<CategoryUpdateDto, CategoryEntity>(model));
             return NoContent();
         }
@@ -57,6 +57,22 @@ namespace Medusa.WebAPI.Controllers
         {
             await _categoryService.RemoveAsync(new CategoryEntity() { Id = id });
             return NoContent();
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetWithBlogsWithCount()
+        {
+            var categories = await _categoryService.GetAllWithCategoryBlogAsync();
+            List<CategoryWithBlogsCountDto> listCategoryBlog = new List<CategoryWithBlogsCountDto>();
+            foreach (var item in categories)
+            {
+                CategoryWithBlogsCountDto categoryWithBlogs = new CategoryWithBlogsCountDto();
+                categoryWithBlogs.Category = item;
+                categoryWithBlogs.BlogsCount = item.CategoryBlogs.Count;
+                listCategoryBlog.Add(categoryWithBlogs);
+            }
+
+            return Ok(listCategoryBlog);
         }
     }
 }

@@ -8,5 +8,6 @@ namespace Medusa.Business.Interface
     public interface ICategoryService : IGenericService<CategoryEntity>
     {
         Task<List<CategoryEntity>> GetAllSortedById();
+        Task<List<CategoryEntity>> GetAllWithCategoryBlogAsync();
     }
 }
