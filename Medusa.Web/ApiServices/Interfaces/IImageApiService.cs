@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Medusa.WebUI.ApiServices.Interfaces
 {
-    interface IImageApiService
+    public interface IImageApiService
     {
         Task<string> GetBlogImageByIdAsync(int id);
     }

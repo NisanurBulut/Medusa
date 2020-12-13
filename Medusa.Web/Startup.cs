@@ -26,6 +26,8 @@ namespace Medusa.Web
         {
             services.AddHttpClient<ICategoryApiService, CategoryApiService>();
             services.AddHttpClient<IBlogApiService, BlogApiService>();
+            services.AddHttpClient<IImageApiService, ImageApiService>();
+
             services.AddControllersWithViews();
         }
 

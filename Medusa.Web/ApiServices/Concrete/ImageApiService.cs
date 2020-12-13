@@ -17,7 +17,7 @@ namespace Medusa.WebUI.ApiServices.Concrete
         }
         public async Task<string> GetBlogImageByIdAsync(int id)
         {
-            var responseMessage = await _httpClient.GetAsync($"GetBlogImageByIdAsync/{id}");
+            var responseMessage = await _httpClient.GetAsync($"{_httpClient.BaseAddress}/GetBlogImageById?id={id}");
             if (responseMessage.IsSuccessStatusCode)
             {
                 // byte olarak okunacak
