@@ -9,16 +9,16 @@ namespace Medusa.WebUI.TagHelpers
     public class ImageTagHelper : TagHelper
     {
         private readonly IImageApiService _imageapiService;
-
+        public int Id { get; set; }
+        public string imgClass { get; set; }
         public ImageTagHelper(IImageApiService imageapiService)
         {
             this._imageapiService = imageapiService;
         }
-        public int Id { get; set; }
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
             var blob = await _imageapiService.GetBlogImageByIdAsync(Id);
-            var html = $"<img class='card-img-top' src='{blob}'/>";
+            var html = $"<img class='{imgClass}' src='{blob}'/>";
             output.Content.SetHtmlContent(html);
         }
     }

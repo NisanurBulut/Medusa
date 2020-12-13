@@ -30,7 +30,7 @@ namespace Medusa.WebUI.ApiServices.Concrete
 
         public async Task<BlogListModel> GetByIdAsync(int id)
         {
-            var responseMessage = await _httpClient.GetAsync(_httpClient.BaseAddress + "/GetBlogById");
+            var responseMessage = await _httpClient.GetAsync($"{_httpClient.BaseAddress}/GetBlogById?id={id}");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var result = JsonConvert.DeserializeObject<BlogListModel>(await responseMessage.Content.ReadAsStringAsync());
