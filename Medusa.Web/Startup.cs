@@ -24,10 +24,11 @@ namespace Medusa.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
             services.AddHttpClient<ICategoryApiService, CategoryApiService>();
             services.AddHttpClient<IBlogApiService, BlogApiService>();
             services.AddHttpClient<IImageApiService, ImageApiService>();
-
+            services.AddSession();
             services.AddControllersWithViews();
         }
 
@@ -43,7 +44,7 @@ namespace Medusa.Web
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();
