@@ -16,15 +16,19 @@ namespace Medusa.Web.Controllers
 
         private IBlogApiService _blogApiService { get; }
 
-        public HomeController(IBlogApiService blogApiService,ILogger<HomeController> logger)
+        public HomeController(IBlogApiService blogApiService, ILogger<HomeController> logger)
         {
             _blogApiService = blogApiService;
             _logger = logger;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? categoryId)
         {
-            return View(await _blogApiService.GetAllAsync()) ;
+            if (categoryId.HasValue)
+            { 
+                return View(await _blogApiService.GetAllByCategoryIdAsync(categoryId.Value));
+            }
+            return View(await _blogApiService.GetAllAsync());
         }
 
         public async Task<IActionResult> BlogDetail(int id)
