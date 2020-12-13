@@ -72,7 +72,8 @@ namespace Medusa.WebAPI.Controllers
             foreach (var item in categories)
             {
                 CategoryWithBlogsCountDto categoryWithBlogs = new CategoryWithBlogsCountDto();
-                categoryWithBlogs.Category = item;
+                categoryWithBlogs.CategoryId = item.Id;
+                categoryWithBlogs.CategoryName = item.Name;
                 categoryWithBlogs.BlogsCount = item.CategoryBlogs.Count;
                 listCategoryBlog.Add(categoryWithBlogs);
             }

@@ -26,5 +26,15 @@ namespace Medusa.WebUI.ApiServices.Concrete
             }
             return null;
         }
+        public async Task<List<CategoryWithBlogsCountModel>> GetAllWithBlogsCountAsync()
+        {
+            var responseMessage = await _httpClient.GetAsync($"{_httpClient.BaseAddress}/GetWithBlogsWithCount");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<List<CategoryWithBlogsCountModel>>
+                    (await responseMessage.Content.ReadAsStringAsync());
+            }
+            return null;
+        }
     }
 }

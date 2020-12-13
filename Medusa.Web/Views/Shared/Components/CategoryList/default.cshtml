@@ -1,14 +1,14 @@
-﻿@model List<CategoryListModel>
+﻿@model List<CategoryWithBlogsCountModel>
 
 
 <div class="card my-4">
-    <h5 class="card-header">Categories</h5>
+    <h5 class="card-header">Kategoriler</h5>
     @foreach (var item in Model)
     {
         <div class="list-group">
     <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-        @item.Name
-        <span class="badge badge-primary badge-pill">14</span>
+        @item.CategoryName
+        <span class="badge badge-primary badge-pill">@item.BlogsCount</span>
     </a>
             </div>}
 </div>

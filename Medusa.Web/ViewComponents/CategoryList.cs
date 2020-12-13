@@ -14,7 +14,7 @@ namespace Medusa.WebUI.ViewComponents
         {
             // async method kullanılamaz bu sebeple await yazılamaz
             // ilgili sonuc gelene kadar beklemesi için  result kullanılır
-            return View(_categoryApiService.GetAllAsync().Result);
+            return View(_categoryApiService.GetAllWithBlogsCountAsync().Result);
         }
     }
 }

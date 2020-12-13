@@ -6,5 +6,6 @@ namespace Medusa.WebUI.ApiServices.Interfaces
     public interface ICategoryApiService
     {
         Task<List<CategoryListModel>> GetAllAsync();
+        Task<List<CategoryWithBlogsCountModel>> GetAllWithBlogsCountAsync();
     }
 }
