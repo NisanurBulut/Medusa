@@ -25,7 +25,8 @@ namespace Medusa.Web.Controllers
         public async Task<IActionResult> Index(int? categoryId)
         {
             if (categoryId.HasValue)
-            { 
+            {
+                ViewBag.ActiveCategoryId = categoryId.Value;
                 return View(await _blogApiService.GetAllByCategoryIdAsync(categoryId.Value));
             }
             return View(await _blogApiService.GetAllAsync());

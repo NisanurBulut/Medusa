@@ -3,6 +3,10 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@if (ViewBag.ActiveCategoryId != null)
+{
+    <categoryDivTag id="ViewBag.ActiveCategoryId"></categoryDivTag>
+}
 @foreach (var blog in Model)
 {
     <!-- Blog Post -->
