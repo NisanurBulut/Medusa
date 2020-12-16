@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Medusa.WebUI.Models
+namespace Medusa.WebAPI.Models
 {
-    public class AccessToken
+    public class AccessTokenModel
     {
         public string Token { get; set; }
     }

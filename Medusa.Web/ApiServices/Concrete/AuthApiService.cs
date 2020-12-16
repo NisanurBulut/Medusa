@@ -29,7 +29,7 @@ namespace Medusa.WebUI.ApiServices.Concrete
             var responseMessage = await _httpClient.PostAsync($"{_httpClient.BaseAddress}/SignIn", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
-                var accessToken = JsonConvert.DeserializeObject<AccessToken>
+                var accessToken = JsonConvert.DeserializeObject<AccessTokenModel>
                     (await responseMessage.Content.ReadAsStringAsync());
                 _httpContextAccessor.HttpContext.Session.SetString("token", accessToken.Token);
                 return true;

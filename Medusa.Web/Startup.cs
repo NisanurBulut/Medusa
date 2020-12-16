@@ -28,6 +28,8 @@ namespace Medusa.Web
             services.AddHttpClient<ICategoryApiService, CategoryApiService>();
             services.AddHttpClient<IBlogApiService, BlogApiService>();
             services.AddHttpClient<IImageApiService, ImageApiService>();
+            services.AddHttpClient<IAuthApiService, AuthApiService>();
+
             services.AddSession();
             services.AddControllersWithViews();
         }
