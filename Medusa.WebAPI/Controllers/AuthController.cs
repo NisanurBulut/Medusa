@@ -22,7 +22,7 @@ namespace Medusa.WebAPI.Controllers
             this._jwtService = jwtService;
             this._mapper = mapper;
         }
-        [HttpPost]
+        [HttpPost("[action]")]
         [ValidModel]
         public async Task<IActionResult> SignIn(AppUserLoginDto appUserLoginDto)
         {

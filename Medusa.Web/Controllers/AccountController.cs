@@ -27,9 +27,9 @@ namespace Medusa.WebUI.Controllers
         {
             if (await _authApiService.SignIn(model))
             {
-                return RedirectToAction("");
+                return RedirectToAction("test");
             }
-            return View();
+            return View(new AppUserLoginModel());
         }
     }
 }
