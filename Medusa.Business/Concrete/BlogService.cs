@@ -47,7 +47,7 @@ namespace Medusa.Business.Concrete
 
         public async Task<List<BlogEntity>> GetAllByCategoryIdAsync(int id)
         {
-           return await _blogDal.GetAllByCategoryIdAsync(id);
+            return await _blogDal.GetAllByCategoryIdAsync(id);
         }
 
         public async Task<List<CategoryEntity>> GetCategoriesByBlogIdAsync(int blogId)
@@ -58,6 +58,12 @@ namespace Medusa.Business.Concrete
         public async Task<List<BlogEntity>> GetLastSizeAsync(int size)
         {
             return await _blogDal.GetLastSizeAsync(size);
+        }
+
+        public async Task<List<BlogEntity>> SearchBlogAsync(string searchString)
+        {
+            return await _blogDal.GetAllAsync(a => a.Title.Contains(searchString) ||
+            a.LongDescription.Contains(searchString) || a.ShortDescription.Contains(searchString), b => b.PostedTime);
         }
     }
 }

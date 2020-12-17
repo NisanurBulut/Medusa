@@ -9,6 +9,7 @@ namespace Medusa.Business.Interface
     public interface IBlogService : IGenericService<BlogEntity>
     {
         Task<List<BlogEntity>> GetAllSortedByPostedTimeAsync();
+        Task<List<BlogEntity>> SearchBlogAsync(string searchString);
         Task AddToCategoryAsync(CategoryBlogDto categoryBlogDto);
         Task RemoveToCategoryAsync(CategoryBlogDto categoryBlogDto);
         Task<List<BlogEntity>> GetAllByCategoryIdAsync(int id);

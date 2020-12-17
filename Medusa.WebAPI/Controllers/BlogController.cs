@@ -30,6 +30,12 @@ namespace Medusa.WebAPI.Controllers
         {
             return Ok(_mapper.Map<List<BlogDto>>(await _blogService.GetAllSortedByPostedTimeAsync()));
         }
+        [Route("[action]")]
+        [HttpGet]
+        public async Task<IActionResult> Search([FromQuery]string s)
+        {
+            return Ok(_mapper.Map<List<BlogDto>>(await _blogService.SearchBlogAsync(s)));
+        }
 
         [HttpGet("[action]")]
         [ServiceFilter(typeof(ValidIdModel<BlogEntity>))]
