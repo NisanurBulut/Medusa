@@ -1,8 +1,8 @@
 ﻿using Medusa.WebUI.ApiServices.Interfaces;
 using Medusa.WebUI.Filters;
+using Medusa.WebUI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-
 namespace Medusa.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
@@ -18,6 +18,15 @@ namespace Medusa.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _blogApiService.GetAllAsync());
+        }
+        public IActionResult CreateBlog()
+        {
+            return View(new BlogAddModel());
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateBlog(BlogAddModel item)
+        {
+            return View();
         }
     }
 }
