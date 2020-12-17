@@ -7,13 +7,11 @@ using System.Threading.Tasks;
 namespace Medusa.Business.Concrete
 {
     public class CommentService : GenericService<CommentEntity>, ICommentService
-    {
-        private readonly IGenericDal<CommentEntity> _genericDal;
+    {       
         private readonly ICommentDal _commentDal;
 
         public CommentService(IGenericDal<CommentEntity> genericDal, ICommentDal commentDal) : base(genericDal)
         {
-            _genericDal = genericDal;
             _commentDal = commentDal;
         }
 

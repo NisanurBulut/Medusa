@@ -14,24 +14,17 @@ namespace Medusa.Business.Tools
         public JwtToken GenerateJwt(AppUserEntity appUser)
         {
             JwtToken jwtToken = new JwtToken();
-            try
-            {
             SymmetricSecurityKey symmetricSecurity = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtInfo.SECURITYKEY));
-           
+
             SigningCredentials signingCredentials = new SigningCredentials(symmetricSecurity, SecurityAlgorithms.HmacSha512);
-            
+
             JwtSecurityToken jwtSecurityToken = new JwtSecurityToken(JwtInfo.ISSUER,
                 JwtInfo.AUDIENCE, SetClaims(appUser), DateTime.Now, DateTime.Now.AddMinutes(JwtInfo.EXPIRES), signingCredentials);
-            
-            JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-            
-            
-            jwtToken.Token = handler.WriteToken(jwtSecurityToken);
-            }
-           catch(Exception ex)
-            {
 
-            }
+            JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+
+
+            jwtToken.Token = handler.WriteToken(jwtSecurityToken);
             return jwtToken;
         }
         private List<Claim> SetClaims(AppUserEntity appUser)

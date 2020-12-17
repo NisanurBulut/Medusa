@@ -60,7 +60,10 @@ namespace Medusa.WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            else
+            {
+                app.UseExceptionHandler("/Error");
+            }
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

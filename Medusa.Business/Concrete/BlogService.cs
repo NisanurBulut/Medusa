@@ -9,12 +9,10 @@ namespace Medusa.Business.Concrete
 {
     public class BlogService : GenericService<BlogEntity>, IBlogService
     {
-        private IGenericDal<BlogEntity> _genericDal;
         private IGenericDal<CategoryBlogEntity> _categoryBlogService;
         private IBlogDal _blogDal;
         public BlogService(IGenericDal<BlogEntity> genericDal, IGenericDal<CategoryBlogEntity> categoryBlogService, IBlogDal blogDal) : base(genericDal)
         {
-            _genericDal = genericDal;
             _categoryBlogService = categoryBlogService;
             _blogDal = blogDal;
         }
@@ -42,7 +40,7 @@ namespace Medusa.Business.Concrete
         }
         public async Task<List<BlogEntity>> GetAllSortedByPostedTimeAsync()
         {
-            return await _genericDal.GetAllAsync(I => I.PostedTime);
+            return await _blogDal.GetAllAsync(I => I.PostedTime);
         }
 
         public async Task<List<BlogEntity>> GetAllByCategoryIdAsync(int id)
