@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Medusa.WebAPI.Models
+namespace Medusa.WebUI.Models
 {
     public class BlogAddModel
     {
