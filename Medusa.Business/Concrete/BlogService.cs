@@ -49,5 +49,10 @@ namespace Medusa.Business.Concrete
         {
            return await _blogDal.GetAllByCategoryIdAsync(id);
         }
+
+        public async Task<List<CategoryEntity>> GetCategoriesByBlogIdAsync(int blogId)
+        {
+            return await _blogDal.GetCategoriesByBlogIdAsync(blogId);
+        }
     }
 }

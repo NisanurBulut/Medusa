@@ -11,7 +11,7 @@ namespace Medusa.DataAccess.Concrete
     public class BlogRepository : GenericDal<BlogEntity>, IBlogDal
     {
         private readonly DatabaseContext _context;
-        public BlogRepository(DatabaseContext context) :base(context)
+        public BlogRepository(DatabaseContext context) : base(context)
         {
             _context = context;
         }
@@ -35,6 +35,20 @@ namespace Medusa.DataAccess.Concrete
                     PostedTime = a.blog.PostedTime,
                     Title = a.blog.Title
                 }).ToListAsync();
+        }
+        public async Task<List<CategoryEntity>> GetCategoriesByBlogIdAsync(int blogId)
+        {
+            return await _context.tCategory.Join(_context.tCategoryBlog, c => c.Id, cb => cb.CategoryId,
+                 (cEntities, cbEntities) => new
+                 {
+                     category = cEntities,
+                     categoryBlog = cbEntities
+                 })
+                 .Where(a => a.categoryBlog.BlogId == blogId).Select(a => new CategoryEntity
+                 {
+                     Id = a.category.Id,
+                     Name = a.category.Name
+                 }).ToListAsync();
         }
     }
 }

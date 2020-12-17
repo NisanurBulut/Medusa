@@ -9,5 +9,6 @@ namespace Medusa.DataAccess.Interface
     public interface IBlogDal:IGenericDal<BlogEntity>
     {
         Task<List<BlogEntity>> GetAllByCategoryIdAsync(int id);
+        Task<List<CategoryEntity>> GetCategoriesByBlogIdAsync(int blogId);
     }
 }

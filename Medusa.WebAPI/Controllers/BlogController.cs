@@ -114,6 +114,11 @@ namespace Medusa.WebAPI.Controllers
         {
             return Ok(await _blogService.GetAllByCategoryIdAsync(id));
         }
-        
+        [HttpGet("[action]")]
+        [ServiceFilter(typeof(ValidIdModel<BlogEntity>))]
+        public async Task<IActionResult> GetCategoriesByBlogIdAsync(int id)
+        {
+            return Ok(await _blogService.GetAllByCategoryIdAsync(id));
+        }
     }
 }
