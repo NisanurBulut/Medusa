@@ -10,10 +10,15 @@ namespace Medusa.DataAccess.Concrete
 {
     public class CategoryRepository : GenericDal<CategoryEntity>, ICategoryDal
     {
+        private readonly DatabaseContext _context;
+        public CategoryRepository(DatabaseContext context) : base(context)
+        {
+            _context = context;
+        }
         public async Task<List<CategoryEntity>> GetAllWithCategoryBlogAsync()
         {
-            using var context = new DatabaseContext();
-            return await context.tCategory.Include(a => a.CategoryBlogs)
+            
+            return await _context.tCategory.Include(a => a.CategoryBlogs)
                 .OrderByDescending(a => a.Id)
                 .ToListAsync();
         }

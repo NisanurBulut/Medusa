@@ -10,10 +10,14 @@ namespace Medusa.DataAccess.Concrete
 {
     public class BlogRepository : GenericDal<BlogEntity>, IBlogDal
     {
+        private readonly DatabaseContext _context;
+        public BlogRepository(DatabaseContext context) :base(context)
+        {
+            _context = context;
+        }
         public async Task<List<BlogEntity>> GetAllByCategoryIdAsync(int id)
         {
-            using var context = new DatabaseContext();
-            return await context.tBlog.Join(context.tCategoryBlog, b => b.Id, cb => cb.BlogId,
+            return await _context.tBlog.Join(_context.tCategoryBlog, b => b.Id, cb => cb.BlogId,
                 (blog, categoryBlog) => new
                 {
                     blog = blog,

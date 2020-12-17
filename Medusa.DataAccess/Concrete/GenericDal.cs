@@ -12,62 +12,58 @@ namespace Medusa.DataAccess.Concrete
 {
     public class GenericDal<tEntity> : IGenericDal<tEntity> where tEntity : class, ITable, new()
     {
+        private readonly DatabaseContext _context;
+        public GenericDal(DatabaseContext context)
+        {
+            _context = context;
+        }
         public async Task AddAsync(tEntity item)
         {
-            using var context = new DatabaseContext();
-            await context.AddAsync(item);
-            await context.SaveChangesAsync();
+            await _context.AddAsync(item);
+            await _context.SaveChangesAsync();
 
         }
 
         public async Task<tEntity> FindByIdAsync(int id)
         {
-            using var context = new DatabaseContext();
-            return await context.FindAsync<tEntity>(id);
+            return await _context.FindAsync<tEntity>(id);
         }
 
         public async Task<List<tEntity>> GetAllAsync()
         {
-            using var context = new DatabaseContext();
-            return await context.Set<tEntity>().ToListAsync();
+            return await _context.Set<tEntity>().ToListAsync();
         }
 
         public async Task<List<tEntity>> 
             GetAllAsync<tKey>(Expression<Func<tEntity, bool>> filter, Expression<Func<tEntity,tKey>> keySelector)
         {
-            using var context = new DatabaseContext();
-            return await context.Set<tEntity>().Where(filter).OrderByDescending(keySelector).ToListAsync();
+            return await _context.Set<tEntity>().Where(filter).OrderByDescending(keySelector).ToListAsync();
         }
         public async Task<List<tEntity>>
             GetAllAsync<tKey>(Expression<Func<tEntity, tKey>> keySelector)
         {
-            using var context = new DatabaseContext();
-            return await context.Set<tEntity>().OrderByDescending(keySelector).ToListAsync();
+            return await _context.Set<tEntity>().OrderByDescending(keySelector).ToListAsync();
         }
 
         public async Task<List<tEntity>> GetAllAsync(Expression<Func<tEntity, bool>> filter)
         {
-            using var context = new DatabaseContext();
-            return await context.Set<tEntity>().Where(filter).ToListAsync();
+            return await _context.Set<tEntity>().Where(filter).ToListAsync();
         }
         public async Task<tEntity> GetAsync(Expression<Func<tEntity, bool>> filter)
         {
-            using var context = new DatabaseContext();
-            return await context.Set<tEntity>().FirstOrDefaultAsync(filter);
+            return await _context.Set<tEntity>().FirstOrDefaultAsync(filter);
         }
 
         public async Task RemoveAsync(tEntity item)
         {
-            using var context = new DatabaseContext();
-             context.Remove(item);
-            await context.SaveChangesAsync();
+             _context.Remove(item);
+            await _context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(tEntity item)
         {
-            using var context = new DatabaseContext();
-            context.Update(item);
-            await context.SaveChangesAsync();
+            _context.Update(item);
+            await _context.SaveChangesAsync();
         }
     }
 }
