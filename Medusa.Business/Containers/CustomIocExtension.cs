@@ -31,6 +31,7 @@ namespace Medusa.Business.Containers
             services.AddScoped<ICommentDal, CommentRepository>();
 
             services.AddScoped<IJwtService, JwtManager>();
+            services.AddScoped<ICustomLog, NLogAdapter>();
 
             services.AddTransient<IValidator<AppUserLoginDto>, AppUserValidator>();
             services.AddTransient<IValidator<CategoryBlogDto>, CategoryBlogValidator>();
