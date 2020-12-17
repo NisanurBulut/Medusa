@@ -13,11 +13,11 @@
                 <td>@item.Id</td>
                 <td>@item.Title</td>
                 <td>
-                    <a href="">
-                        <i class="fa fa-edit"></i>
+                    <a class="btn btn-sm btn-warning" asp-action="UpdateBlog" asp-route-id="@item.Id"> Düzenle
+                        
                     </a>
-                    <a href="">
-                        <i class="fa fa-trash"></i>
+                    <a class="btn btn-sm btn-danger" asp-action="DeleteBlog" asp-route-id="@item.Id">
+                        Sil
                     </a>
                 </td>
             </tr>

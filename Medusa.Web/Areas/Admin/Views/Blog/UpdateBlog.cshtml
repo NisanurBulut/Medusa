@@ -1,0 +1,40 @@
+﻿@model BlogUpdateModel
+@{
+    ViewData["Title"] = "UpdateBlog";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<form asp-action="UpdateBlog" method="POST" class="p-3" enctype="multipart/form-data">
+   <input type="hidden"  asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ShortDescription"></label>
+        <textarea asp-for="ShortDescription" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="LongDescription"></label>
+        <textarea asp-for="LongDescription" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="Image"></label>
+        <input asp-for="Image" type="file" class="form-control-file" />
+    </div>
+    <div class="form-group">
+        <button class="btn btn-sm btn-success" type="submit">Kaydet</button>
+    </div>
+</form>
+@section cssTrumbowyg{
+    <link rel="stylesheet" href="/lib/Trumbowyg/dist/ui/trumbowyg.min.css" />
+}
+@section jsTrumbowyg
+{
+    <script src="/lib/Trumbowyg/dist/trumbowyg.min.js"></script>
+    <script>
+    $('#LongDescription').trumbowyg();
+    </script>
+}
+

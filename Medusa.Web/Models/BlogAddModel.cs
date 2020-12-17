@@ -16,7 +16,7 @@ namespace Medusa.WebUI.Models
         public string LongDescription { get; set; }
         public string ImagePath { get; set; }
 
-        [Display(Name = "Resim")]
+        [Display(Name = "Resim Seçiniz :")]
         public IFormFile Image { get; set; }
     }
 }

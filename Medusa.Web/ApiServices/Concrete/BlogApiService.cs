@@ -119,5 +119,16 @@ namespace Medusa.WebUI.ApiServices.Concrete
 
             }
         }
+
+        public async Task DeleteAsync(int id)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _httpcontextAccessor.HttpContext.Session.GetString("token"));
+            var responseMessage = await _httpClient.DeleteAsync($"{_httpClient.BaseAddress}/DeleteBlog?id={id}");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var result = JsonConvert.DeserializeObject<List<BlogListModel>>
+                    (await responseMessage.Content.ReadAsStringAsync());
+            }
+        }
     }
 }

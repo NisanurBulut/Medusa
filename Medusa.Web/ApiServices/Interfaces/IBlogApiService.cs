@@ -13,5 +13,6 @@ namespace Medusa.WebUI.ApiServices.Interfaces
         Task<List<BlogListModel>> GetAllByCategoryIdAsync(int id);
         Task AddAsync(BlogAddModel model);
         Task UpdateAsync(BlogUpdateModel model);
+        Task DeleteAsync(int id);
     }
 }
