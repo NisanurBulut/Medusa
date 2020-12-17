@@ -17,7 +17,7 @@ namespace Medusa.DataAccess.Concrete
             _context = context;
         }
 
-        public async Task<List<CommentEntity>> GetAllWithSubComments(int blogId, int? parentId)
+        public async Task<List<CommentEntity>> GetAllWithSubCommentsAsync(int blogId, int? parentId)
         {
             var result = new List<CommentEntity>();
             await GetComments(blogId, parentId, result);

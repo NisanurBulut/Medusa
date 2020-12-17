@@ -27,6 +27,9 @@ namespace Medusa.Business.Containers
             services.AddScoped<IAppUserService, AppUserService>();
             services.AddScoped<IAppUserDal, AppUserRepository>();
 
+            services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<ICommentDal, CommentRepository>();
+
             services.AddScoped<IJwtService, JwtManager>();
 
             services.AddTransient<IValidator<AppUserLoginDto>, AppUserValidator>();

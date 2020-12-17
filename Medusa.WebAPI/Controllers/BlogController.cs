@@ -16,11 +16,13 @@ namespace Medusa.WebAPI.Controllers
     public class BlogController : BaseController
     {
         private readonly IBlogService _blogService;
+        private readonly ICommentService _commentService;
         private readonly IMapper _mapper;
-        public BlogController(IBlogService blogService, IMapper mapper)
+        public BlogController(IBlogService blogService, ICommentService commentService, IMapper mapper)
         {
             this._mapper = mapper;
             this._blogService = blogService;
+            _commentService = commentService;
         }
         [Route("[action]")]
         [HttpGet]
@@ -28,7 +30,7 @@ namespace Medusa.WebAPI.Controllers
         {
             return Ok(_mapper.Map<List<BlogDto>>(await _blogService.GetAllSortedByPostedTimeAsync()));
         }
-       
+
         [HttpGet("[action]")]
         [ServiceFilter(typeof(ValidIdModel<BlogEntity>))]
         public async Task<IActionResult> GetBlogById(int id)
@@ -64,7 +66,7 @@ namespace Medusa.WebAPI.Controllers
         [ValidModel]
         public async Task<IActionResult> UpdateBlog([FromForm] BlogUpdateModel model)
         {
-            
+
             var uploadModel = await UploadFile(model.Image);
 
             if (uploadModel.UploadState == Enums.UploadState.success)
@@ -124,6 +126,11 @@ namespace Medusa.WebAPI.Controllers
         public async Task<IActionResult> GetLastSizeBlogAsync(int size)
         {
             return Ok(_mapper.Map<BlogDto>(await _blogService.GetLastSizeAsync(size)));
+        }
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetLastSizeBlogAsync(int blogId, int? parentCommentId)
+        {
+            return Ok(_mapper.Map<CommentListDto>(await _commentService.GetAllWithSubCommentsAsync(blogId, parentCommentId)));
         }
     }
 }

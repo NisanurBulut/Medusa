@@ -6,6 +6,6 @@ namespace Medusa.DataAccess.Interface
 {
     public interface ICommentDal:IGenericDal<CommentEntity>
     {
-        public Task<List<CommentEntity>> GetAllWithSubComments(int blogId, int? parentId);
+        public Task<List<CommentEntity>> GetAllWithSubCommentsAsync(int blogId, int? parentId);
     }
 }

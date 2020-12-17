@@ -31,6 +31,12 @@ namespace Medusa.WebAPI.MapProfile
 
             CreateMap<AppUserEntity, AppUserDto>();
             CreateMap<AppUserDto, AppUserEntity>();
+
+            CreateMap<CommentEntity, CommentListDto>();
+            CreateMap<CommentListDto, CommentEntity>();
+
+            CreateMap<CommentEntity, CommentAddDto>();
+            CreateMap<CommentAddDto, CommentEntity>();
         }
     }
 }
