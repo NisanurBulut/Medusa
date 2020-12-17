@@ -4,7 +4,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<a href="" class="btn btn-sm btn-info">Yeni Blog Yaz</a>
+<a asp-action="CreateBlog" asp-controller="Blog" asp-area="Admin" class="btn btn-sm btn-info">Yeni Blog Yaz</a>
 <table class="table table-bordered table-hover">
     <tbody>
         @foreach (var item in Model)

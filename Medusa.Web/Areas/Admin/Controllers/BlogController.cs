@@ -19,6 +19,7 @@ namespace Medusa.WebUI.Areas.Admin.Controllers
         {
             return View(await _blogApiService.GetAllAsync());
         }
+        [HttpGet]
         public IActionResult CreateBlog()
         {
             return View(new BlogAddModel());
@@ -26,6 +27,11 @@ namespace Medusa.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateBlog(BlogAddModel item)
         {
+            if (ModelState.IsValid)
+            {
+                await _blogApiService.AddAsync(item);
+                return RedirectToAction("Index");
+            }
             return View();
         }
     }
