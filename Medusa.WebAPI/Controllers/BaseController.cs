@@ -1,4 +1,5 @@
-﻿using Medusa.WebAPI.Models;
+﻿using Medusa.Business.StringInfo;
+using Medusa.WebAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,17 +12,12 @@ namespace Medusa.WebAPI.Controllers
     [ApiController]
     public class BaseController : ControllerBase
     {
-        public async Task<UploadModel> UploadFile(IFormFile formFile, string contentType)
+        public async Task<UploadModel> UploadFile(IFormFile formFile)
         {
             UploadModel model = new UploadModel();
             if (formFile != null)
             {
-                if (formFile.ContentType != contentType)
-                {
-                    model.ErrorMessage = "Uygunsuz dosya tipi";
-                    model.UploadState = Enums.UploadState.error;
-                }
-                else
+                if (formFile.ContentType == ContentTypeInfo.CONTENTTYPEJPG || formFile.ContentType == ContentTypeInfo.CONTENTTYPEPNG)
                 {
                     var newName = Guid.NewGuid() + Path.GetExtension(formFile.FileName);
                     var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/" + newName);
@@ -30,6 +26,11 @@ namespace Medusa.WebAPI.Controllers
                     await formFile.CopyToAsync(stream);
                     model.NewName = newName;
                     model.UploadState = Enums.UploadState.success;
+                }
+                else
+                {
+                    model.ErrorMessage = "Uygunsuz dosya tipi";
+                    model.UploadState = Enums.UploadState.error;                    
                 }
             }
             else

@@ -41,7 +41,7 @@ namespace Medusa.WebAPI.Controllers
         [ValidModel]
         public async Task<IActionResult> CreateBlog([FromForm] BlogAddModel model)
         {
-            var uploadModel = await UploadFile(model.Image, "image/jpeg");
+            var uploadModel = await UploadFile(model.Image);
             if (uploadModel.UploadState == Enums.UploadState.success)
             {
                 await _blogService.AddAsync(_mapper.Map<BlogAddModel, BlogEntity>(model));
@@ -56,17 +56,16 @@ namespace Medusa.WebAPI.Controllers
             {
                 return BadRequest(uploadModel.ErrorMessage);
             }
-
         }
 
 
         [HttpPut("[action]")]
         [Authorize]
         [ValidModel]
-        public async Task<IActionResult> UpdateBlog([FromForm] BlogUpdateModel model, int id)
+        public async Task<IActionResult> UpdateBlog([FromForm] BlogUpdateModel model)
         {
-            if (model.Id != id) return BadRequest("Geçersiz id bilgisi");
-            var uploadModel = await UploadFile(model.Image, "image/jpeg");
+            
+            var uploadModel = await UploadFile(model.Image);
 
             if (uploadModel.UploadState == Enums.UploadState.success)
             {

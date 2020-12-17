@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -61,7 +62,9 @@ namespace Medusa.WebUI.ApiServices.Concrete
 
             if (model.Image != null)
             {
-                var bytes = await System.IO.File.ReadAllBytesAsync(model.Image.FileName);
+                var stream = new MemoryStream();
+                await model.Image.CopyToAsync(stream);
+                var bytes = stream.ToArray();
 
                 var user = _httpcontextAccessor.HttpContext.Session.GetObject<AppUserViewModel>("activeUser");
                 model.AppUserId = user.Id;
@@ -92,7 +95,9 @@ namespace Medusa.WebUI.ApiServices.Concrete
 
             if (model.Image != null)
             {
-                var bytes = await System.IO.File.ReadAllBytesAsync(model.Image.FileName);
+                var stream = new MemoryStream();
+                await model.Image.CopyToAsync(stream);
+                var bytes = stream.ToArray();
 
                 var user = _httpcontextAccessor.HttpContext.Session.GetObject<AppUserViewModel>("activeUser");
                 model.AppUserId = user.Id;
@@ -100,8 +105,8 @@ namespace Medusa.WebUI.ApiServices.Concrete
                 // resimi byte'a çeviricez
                 ByteArrayContent byteContent = new ByteArrayContent(bytes);
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue(model.Image.ContentType);
-
                 formDataContent.Add(byteContent, nameof(BlogAddModel.Image), model.Image.FileName);
+            }
 
                 formDataContent.Add(new StringContent(model.AppUserId.ToString()), nameof(BlogAddModel.AppUserId));
 
@@ -117,7 +122,7 @@ namespace Medusa.WebUI.ApiServices.Concrete
 
                 await _httpClient.PutAsync($"{_httpClient.BaseAddress}/UpdateBlog", formDataContent);
 
-            }
+            
         }
 
         public async Task DeleteAsync(int id)
