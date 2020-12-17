@@ -27,9 +27,10 @@
         <div class="bg-light border-right" id="sidebar-wrapper">
             <div class="sidebar-heading"> MEDUSA </div>
             <div class="list-group list-group-flush">
-                <a asp-action="Index" asp-controller="Blog" asp-area="Admin" 
+                <a asp-action="Index" asp-controller="Blog" asp-area="Admin"
                    class="list-group-item list-group-item-action bg-light">Blog İşlemleri</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
+                <a asp-action="Index" asp-controller="Category" asp-area="Admin"
+                   class="list-group-item list-group-item-action bg-light">Kategori İşlemleri</a>
                 <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
                 <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
                 <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>

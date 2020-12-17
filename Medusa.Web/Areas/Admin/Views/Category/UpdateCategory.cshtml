@@ -1,0 +1,13 @@
+﻿@model CategoryUpdateModel
+
+<form method="post" asp-action="CreateCategory" class="p-3" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input class="form-control" asp-for="Name">
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-block btn-info">Kaydet</button>
+    </div>
+</form>
