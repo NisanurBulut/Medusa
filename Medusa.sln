@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Medusa.Entities", "Medusa.E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7CF8CA59-EAEE-46D6-BF55-2AB6459DA7E1}"
 	ProjectSection(SolutionItems) = preProject
-		ReadMe.txt = ReadMe.txt
+		ReadMe.md = ReadMe.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Medusa.DataAccess", "Medusa.DataAccess\Medusa.DataAccess.csproj", "{491BBBF2-9945-4890-AE5D-37809AB67903}"
@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Medusa.WebUI", "Medusa.Web\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Medusa.Business", "Medusa.Business\Medusa.Business.csproj", "{5EEEFB92-98D2-45E8-9A7B-3E00D4E3A541}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medusa.DataTransferObject", "Medusa.DataTransferObject\Medusa.DataTransferObject.csproj", "{28CAEC10-7BD3-4162-970C-4988368A3EDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Medusa.DataTransferObject", "Medusa.DataTransferObject\Medusa.DataTransferObject.csproj", "{28CAEC10-7BD3-4162-970C-4988368A3EDD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
