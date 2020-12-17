@@ -1,6 +1,6 @@
 ﻿@model BlogAddModel
 
-<form asp-action="CreateBlog" method="post" class="p-3" enctype="multipart/form-data">
+<form asp-action="CreateBlog" method="POST" class="p-3" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="Title"></label>
         <input asp-for="Title" class="form-control" />
@@ -21,3 +21,12 @@
         <button class="btn btn-sm btn-success" type="submit">Kaydet</button>
     </div>
 </form>
+@section cssTrumbowyg{ 
+<link rel="stylesheet" href="/lib/Trumbowyg/dist/ui/trumbowyg.min.css"/>}
+@section jsTrumbowyg
+{ 
+<script src="/lib/Trumbowyg/dist/trumbowyg.min.js"></script>
+<script>
+    $('#LongDescription').trumbowyg();
+</script>
+}

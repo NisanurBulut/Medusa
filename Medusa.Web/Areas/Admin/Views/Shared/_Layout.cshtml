@@ -15,6 +15,7 @@
 
     <!-- Custom styles for this template -->
     <link href="~/css/simple-sidebar.css" rel="stylesheet">
+    @RenderSection("cssTrumbowyg", false);
 
 </head>
 
@@ -70,6 +71,7 @@
       $("#wrapper").toggleClass("toggled");
     });
     </script>
+         @RenderSection("jsTrumbowyg", false);
 
 </body>
 
