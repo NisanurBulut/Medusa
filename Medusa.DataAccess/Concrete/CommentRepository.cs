@@ -36,7 +36,7 @@ namespace Medusa.DataAccess.Concrete
                     if (item.SubComments == null) 
                         item.SubComments = new List<CommentEntity>(); 
 
-                    await GetComments(item.BlogId, item.Id, result); // recursive
+                    await GetComments(item.BlogId, item.Id, item.SubComments); // recursive
 
                     if (!result.Contains(item)) 
                         result.Add(item);
