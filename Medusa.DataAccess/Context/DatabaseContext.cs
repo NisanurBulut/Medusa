@@ -1,14 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Medusa.Entities;
 using Medusa.DataAccess.Mapping;
+using Microsoft.Extensions.Configuration;
 
 namespace Medusa.DataAccess.Context
 {
     public class DatabaseContext : DbContext
     {
+        private readonly IConfiguration _configuration;
+        public DatabaseContext(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=../Medusa.DataAccess/Context/Medusa.db");
+            optionsBuilder.UseSqlite(_configuration.GetConnectionString("MedusaDb"));
             base.OnConfiguring(optionsBuilder);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

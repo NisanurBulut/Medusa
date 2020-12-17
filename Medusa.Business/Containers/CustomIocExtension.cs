@@ -7,6 +7,7 @@ using Medusa.DataAccess.Interface;
 using Microsoft.Extensions.DependencyInjection;
 using Medusa.DataTransferObject;
 using Medusa.Business.ValidationRules;
+using Medusa.DataAccess.Context;
 
 namespace Medusa.Business.Containers
 {
@@ -33,7 +34,7 @@ namespace Medusa.Business.Containers
             services.AddTransient<IValidator<CategoryAddDto>, CategoryAddValidator>();
             services.AddTransient<IValidator<CategoryUpdateDto>, CategoryUpdateValidator>();
 
-
+            services.AddDbContext<DatabaseContext>();
         }
     }
 }
