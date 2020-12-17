@@ -13,5 +13,6 @@ namespace Medusa.Business.Interface
         Task RemoveToCategoryAsync(CategoryBlogDto categoryBlogDto);
         Task<List<BlogEntity>> GetAllByCategoryIdAsync(int id);
         Task<List<CategoryEntity>> GetCategoriesByBlogIdAsync(int blogId);
+        Task<List<BlogEntity>> GetLastSizeAsync(int size);
     }
 }

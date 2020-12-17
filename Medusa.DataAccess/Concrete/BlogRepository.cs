@@ -50,5 +50,10 @@ namespace Medusa.DataAccess.Concrete
                      Name = a.category.Name
                  }).ToListAsync();
         }
+
+        public async Task<List<BlogEntity>> GetLastSizeAsync(int size)
+        {
+          return await _context.tBlog.OrderByDescending(a => a.PostedTime).Take(size).ToListAsync();
+        }
     }
 }

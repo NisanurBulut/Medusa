@@ -120,5 +120,10 @@ namespace Medusa.WebAPI.Controllers
         {
             return Ok(_mapper.Map<CategoryDto>(await _blogService.GetAllByCategoryIdAsync(id)));
         }
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetLastSizeBlogAsync(int size)
+        {
+            return Ok(_mapper.Map<BlogDto>(await _blogService.GetLastSizeAsync(size)));
+        }
     }
 }

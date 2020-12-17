@@ -54,5 +54,10 @@ namespace Medusa.Business.Concrete
         {
             return await _blogDal.GetCategoriesByBlogIdAsync(blogId);
         }
+
+        public async Task<List<BlogEntity>> GetLastSizeAsync(int size)
+        {
+            return await _blogDal.GetLastSizeAsync(size);
+        }
     }
 }
