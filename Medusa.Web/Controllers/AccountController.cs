@@ -27,7 +27,7 @@ namespace Medusa.WebUI.Controllers
         {
             if (await _authApiService.SignIn(model))
             {
-                return RedirectToAction("Index", "Home", new { @area = "Admin" });
+                return RedirectToAction("Index", "Home", new { area = "Admin" });
             }
             return View(new AppUserLoginModel());
         }

@@ -1,0 +1,26 @@
+﻿@model List<BlogListModel>
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<a href="" class="btn btn-sm btn-info">Yeni Blog Yaz</a>
+<table class="table table-bordered table-hover">
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Title</td>
+                <td>
+                    <a href="">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <a href="">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

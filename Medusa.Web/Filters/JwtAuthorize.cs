@@ -25,7 +25,7 @@ namespace Medusa.WebUI.Filters
             else
             {
                 using var httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Beare", token);
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 var responseMessage = httpClient.GetAsync("http://localhost:55315/api/auth/ActiveUser").Result;
 
                 if (responseMessage.IsSuccessStatusCode)
