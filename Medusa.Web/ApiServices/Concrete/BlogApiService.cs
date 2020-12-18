@@ -158,5 +158,14 @@ namespace Medusa.WebUI.ApiServices.Concrete
             }
             return null;
         }
+        public async Task<List<BlogListModel>> GetLastSizeBlog()
+        {
+            var responseMessage = await _httpClient.GetAsync($"{_httpClient.BaseAddress}/GetLastSizeBlogAsync?size={5}");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<List<BlogListModel>>(await responseMessage.Content.ReadAsStringAsync());
+            }
+            return null;
+        }
     }
 }
