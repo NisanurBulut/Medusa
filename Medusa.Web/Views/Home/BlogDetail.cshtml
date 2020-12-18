@@ -24,9 +24,20 @@
 <div class="card my-4">
     <h5 class="card-header">Bir Yorum Bırak</h5>
     <div class="card-body">
-        <form>
+        <form method="post" action="">
+            <input type="hidden" name="BlogId" value="@Model.Id" />
+            <input type="hidden" name="ParentCommentId" value="ParentCommentId" />
             <div class="form-group">
-                <textarea class="form-control" rows="3"></textarea>
+                <label>Maslah:</label>
+                <input name="AuthorName" type="text" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label>E-posta:</label>
+                <input name="AuthorEmail" type="email" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label>Yorum:</label>
+                <textarea name="Description" class="form-control" required></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Kaydet</button>
         </form>
@@ -39,17 +50,17 @@
     {
         if (comments.Any())
         {
-            foreach (var pComment in comments)
+            foreach (var comment in comments)
             {
-
                 <div class="media my-3">
                     <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
                     <div class="media-body">
-                        <h5 class="mt-0">@pComment.AuthorName</h5>
-                        @pComment.Description
-                        <button class="btn btn-sm btn-primary float-right">Cevapla</button>
+                        <h5 class="mt-0">@comment.AuthorName</h5>
+                        @comment.Description
+                        <button class="btn btn-sm btn-primary float-right" onclick="showCommentForm(@comment.Id, @Model.Id)">Cevapla</button>
+                        <div id="commentBox@(comment.Id)"></div>
                         @{
-                            GetComments(pComment.SubComments);
+                            GetComments(comment.SubComments);
                         }
                     </div>
                 </div>
@@ -59,4 +70,40 @@
 }
 @{
     GetComments(comments);
+}
+@section JavaScript{
+    <script>
+    function showCommentForm(id, blogId) {
+        let htmlContent = `<div class="card my-4">
+                    <h5 class="card-header">Bir Yorum Bırak</h5>
+                    <div class="card-body">
+                        <form method="post" action="">
+                            <input type="hidden" name="BlogId" value="${blogId}" />
+                            <input type="hidden" name="ParentCommentId" value="${id}" />
+                            <div class="form-group">
+                                <label>Maslah:</label>
+                                <input name="AuthorName" type="text" class="form-control" required />
+                            </div>
+                            <div class="form-group">
+                                <label>E-posta:</label>
+                                <input name="AuthorEmail" type="email" class="form-control" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Yorum:</label>
+                                <textarea name="Description" class="form-control" required></textarea>
+                            </div>
+                            <button type="button" class="btn btn-warning" onclick="hideCommentForm(${id})">Vazgeç</button>
+                            <button type="submit" class="btn btn-primary" onclick="">Kaydet</button>
+                        </form>
+                    </div>
+                </div>`;
+        $("#commentBox" + id).html(htmlContent);
+
+      
+        }
+        // method isimlerinin upper case olması C#'a özgüdür. Js ve java da CamelCase dir.
+        function hideCommentForm(id) {
+            $("#commentBox" + id).html("");
+        }
+    </script>
 }
