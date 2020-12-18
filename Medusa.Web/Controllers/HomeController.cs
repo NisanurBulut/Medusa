@@ -40,7 +40,7 @@ namespace Medusa.Web.Controllers
         }
         public async Task<IActionResult> AddToComment(CommentAddModel model)
         {
-            await _blogApiService.AddToComment(model);
+            await _blogApiService.AddToCommentAsync(model);
             return RedirectToAction("BlogDetail", new { id = model.BlogId });
         }
     }

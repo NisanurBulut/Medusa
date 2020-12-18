@@ -143,13 +143,13 @@ namespace Medusa.WebUI.ApiServices.Concrete
             }
             return null;
         }
-        public async Task AddToComment(CommentAddModel model)
+        public async Task AddToCommentAsync(CommentAddModel model)
         {
             var jsonData = JsonConvert.SerializeObject(model);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
             await _httpClient.PostAsync($"{_httpClient.BaseAddress}/AddComment", content);
         }
-        public async Task<List<CategoryListModel>> GetCategories(int id)
+        public async Task<List<CategoryListModel>> GetCategoriesAsync(int id)
         {
             var responseMessage = await _httpClient.GetAsync($"{_httpClient.BaseAddress}/GetCategoriesByBlogIdAsync?id={id}");
             if (responseMessage.IsSuccessStatusCode)
@@ -158,9 +158,18 @@ namespace Medusa.WebUI.ApiServices.Concrete
             }
             return null;
         }
-        public async Task<List<BlogListModel>> GetLastSizeBlog()
+        public async Task<List<BlogListModel>> GetLastSizeBlogAsync()
         {
             var responseMessage = await _httpClient.GetAsync($"{_httpClient.BaseAddress}/GetLastSizeBlogAsync?size={5}");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<List<BlogListModel>>(await responseMessage.Content.ReadAsStringAsync());
+            }
+            return null;
+        }
+        public async Task<List<BlogListModel>> SearchAsync(string s)
+        {
+            var responseMessage = await _httpClient.GetAsync($"{_httpClient.BaseAddress}/Search?s={s}");
             if (responseMessage.IsSuccessStatusCode)
             {
                 return JsonConvert.DeserializeObject<List<BlogListModel>>(await responseMessage.Content.ReadAsStringAsync());
