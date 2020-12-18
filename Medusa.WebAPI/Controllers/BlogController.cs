@@ -138,5 +138,13 @@ namespace Medusa.WebAPI.Controllers
         {
             return Ok(_mapper.Map<CommentListDto>(await _commentService.GetAllWithSubCommentsAsync(blogId, parentCommentId)));
         }
+        [HttpPost("[action]")]
+        [ValidModel]
+        public async Task<IActionResult> AddComment(CommentAddDto model)
+        {
+            var entity = _mapper.Map<CommentEntity>(model);
+            await _commentService.AddAsync(_mapper.Map<CommentEntity>(model));
+            return Created("", model);
+        }
     }
 }

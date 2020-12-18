@@ -37,6 +37,7 @@ namespace Medusa.Business.Containers
             services.AddTransient<IValidator<CategoryBlogDto>, CategoryBlogValidator>();
             services.AddTransient<IValidator<CategoryAddDto>, CategoryAddValidator>();
             services.AddTransient<IValidator<CategoryUpdateDto>, CategoryUpdateValidator>();
+            services.AddTransient<IValidator<CommentAddDto>, CommentAddValidator>();
 
             services.AddDbContext<DatabaseContext>();
         }
