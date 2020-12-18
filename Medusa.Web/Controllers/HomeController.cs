@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Net.Http;
 using Medusa.WebUI.ApiServices.Interfaces;
+using Medusa.WebUI.Models;
 
 namespace Medusa.Web.Controllers
 {
@@ -36,6 +37,11 @@ namespace Medusa.Web.Controllers
         {
            ViewBag.Comments = await _blogApiService.GetCommentsAsync(id, null);
             return View(await _blogApiService.GetByIdAsync(id));
+        }
+        public async Task<IActionResult> AddToComment(CommentAddModel model)
+        {
+            await _blogApiService.AddToComment(model);
+            return RedirectToAction("BlogDetail", new { id = model.BlogId });
         }
     }
 }

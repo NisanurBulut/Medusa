@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Medusa.WebUI.ApiServices.Concrete
@@ -33,7 +34,6 @@ namespace Medusa.WebUI.ApiServices.Concrete
             }
             return null;
         }
-
         public async Task<List<BlogListModel>> GetAllByCategoryIdAsync(int id)
         {
             var responseMessage = await _httpClient.GetAsync($"{_httpClient.BaseAddress}/GetAllByCategoryId?id={id}");
@@ -45,7 +45,6 @@ namespace Medusa.WebUI.ApiServices.Concrete
             }
             return null;
         }
-
         public async Task<BlogListModel> GetByIdAsync(int id)
         {
             var responseMessage = await _httpClient.GetAsync($"{_httpClient.BaseAddress}/GetBlogById?id={id}");
@@ -143,6 +142,12 @@ namespace Medusa.WebUI.ApiServices.Concrete
                     (await responseMessage.Content.ReadAsStringAsync());
             }
             return null;
+        }
+        public async Task AddToComment(CommentAddModel model)
+        {
+            var jsonData = JsonConvert.SerializeObject(model);
+            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            await _httpClient.PostAsync($"{_httpClient.BaseAddress}/AddComment",content);
         }
     }
 }
