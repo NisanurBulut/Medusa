@@ -107,21 +107,21 @@ namespace Medusa.WebUI.ApiServices.Concrete
                 formDataContent.Add(byteContent, nameof(BlogAddModel.Image), model.Image.FileName);
             }
 
-                formDataContent.Add(new StringContent(model.AppUserId.ToString()), nameof(BlogAddModel.AppUserId));
+            formDataContent.Add(new StringContent(model.AppUserId.ToString()), nameof(BlogAddModel.AppUserId));
 
-                formDataContent.Add(new StringContent(model.Id.ToString()), nameof(BlogUpdateModel.Id));
+            formDataContent.Add(new StringContent(model.Id.ToString()), nameof(BlogUpdateModel.Id));
 
-                formDataContent.Add(new StringContent(model.ShortDescription), nameof(BlogAddModel.ShortDescription));
+            formDataContent.Add(new StringContent(model.ShortDescription), nameof(BlogAddModel.ShortDescription));
 
-                formDataContent.Add(new StringContent(model.LongDescription), nameof(BlogAddModel.LongDescription));
+            formDataContent.Add(new StringContent(model.LongDescription), nameof(BlogAddModel.LongDescription));
 
-                formDataContent.Add(new StringContent(model.Title), nameof(BlogAddModel.Title));
+            formDataContent.Add(new StringContent(model.Title), nameof(BlogAddModel.Title));
 
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _httpcontextAccessor.HttpContext.Session.GetString("token"));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _httpcontextAccessor.HttpContext.Session.GetString("token"));
 
-                await _httpClient.PutAsync($"{_httpClient.BaseAddress}/UpdateBlog", formDataContent);
+            await _httpClient.PutAsync($"{_httpClient.BaseAddress}/UpdateBlog", formDataContent);
 
-            
+
         }
         public async Task DeleteAsync(int id)
         {
@@ -147,7 +147,16 @@ namespace Medusa.WebUI.ApiServices.Concrete
         {
             var jsonData = JsonConvert.SerializeObject(model);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            await _httpClient.PostAsync($"{_httpClient.BaseAddress}/AddComment",content);
+            await _httpClient.PostAsync($"{_httpClient.BaseAddress}/AddComment", content);
+        }
+        public async Task<List<CategoryListModel>> GetCategories(int id)
+        {
+            var responseMessage = await _httpClient.GetAsync($"{_httpClient.BaseAddress}/GetCategoriesByBlogIdAsync?id={id}");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<List<CategoryListModel>>(await responseMessage.Content.ReadAsStringAsync());
+            }
+            return null;
         }
     }
 }
