@@ -96,7 +96,7 @@ namespace Medusa.WebAPI.Controllers
         [ServiceFilter(typeof(ValidIdModel<BlogEntity>))]
         public async Task<IActionResult> DeleteBlog(int id)
         {
-            await _blogService.RemoveAsync(new BlogEntity() { Id = id });
+            await _blogService.RemoveAsync(await _blogService.FindByIdAsync(id));
             return NoContent();
         }
 

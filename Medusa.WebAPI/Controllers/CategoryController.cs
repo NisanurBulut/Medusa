@@ -60,7 +60,7 @@ namespace Medusa.WebAPI.Controllers
         [ServiceFilter(typeof(ValidIdModel<CategoryEntity>))]
         public async Task<IActionResult> DeleteCategory(int id)
         {
-            await _categoryService.RemoveAsync(new CategoryEntity() { Id = id });
+            await _categoryService.RemoveAsync(await _categoryService.FindByIdAsync(id));
             return NoContent();
         }
 
