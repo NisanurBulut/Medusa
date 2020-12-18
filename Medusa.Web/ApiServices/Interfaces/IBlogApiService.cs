@@ -9,6 +9,7 @@ namespace Medusa.WebUI.ApiServices.Interfaces
     public interface IBlogApiService
     {
         Task<List<BlogListModel>> GetAllAsync();
+        Task<List<CommentListModel>> GetCommentsAsync(int blogId, int? parentCommentId);
         Task<BlogListModel> GetByIdAsync(int id);
         Task<List<BlogListModel>> GetAllByCategoryIdAsync(int id);
         Task AddAsync(BlogAddModel model);

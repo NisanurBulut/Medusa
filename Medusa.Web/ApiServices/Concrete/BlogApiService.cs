@@ -124,7 +124,6 @@ namespace Medusa.WebUI.ApiServices.Concrete
 
             
         }
-
         public async Task DeleteAsync(int id)
         {
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _httpcontextAccessor.HttpContext.Session.GetString("token"));
@@ -134,6 +133,16 @@ namespace Medusa.WebUI.ApiServices.Concrete
                 var result = JsonConvert.DeserializeObject<List<BlogListModel>>
                     (await responseMessage.Content.ReadAsStringAsync());
             }
+        }
+        public async Task<List<CommentListModel>> GetCommentsAsync(int blogId, int? parentCommentId)
+        {
+            var responseMessage = await _httpClient.GetAsync($"{_httpClient.BaseAddress}/GetComments?blogId={blogId}&parentCommentId={parentCommentId}");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<List<CommentListModel>>
+                    (await responseMessage.Content.ReadAsStringAsync());
+            }
+            return null;
         }
     }
 }

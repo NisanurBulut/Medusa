@@ -134,9 +134,9 @@ namespace Medusa.WebAPI.Controllers
             return Ok(_mapper.Map<BlogDto>(await _blogService.GetLastSizeAsync(size)));
         }
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetLastSizeBlogAsync(int blogId, int? parentCommentId)
+        public async Task<IActionResult> GetComments(int blogId, int? parentCommentId)
         {
-            return Ok(_mapper.Map<CommentListDto>(await _commentService.GetAllWithSubCommentsAsync(blogId, parentCommentId)));
+            return Ok(_mapper.Map<List<CommentListDto>>(await _commentService.GetAllWithSubCommentsAsync(blogId, parentCommentId)));
         }
         [HttpPost("[action]")]
         [ValidModel]
@@ -146,5 +146,6 @@ namespace Medusa.WebAPI.Controllers
             await _commentService.AddAsync(_mapper.Map<CommentEntity>(model));
             return Created("", model);
         }
+        
     }
 }
