@@ -30,7 +30,7 @@ namespace Medusa.Business.Concrete
                 });
         }
 
-        public async Task RemoveToCategoryAsync(CategoryBlogDto categoryBlogDto)
+        public async Task RemoveFromCategoryAsync(CategoryBlogDto categoryBlogDto)
         {
             var deletedEntity = await _categoryBlogService
                   .GetAsync(a => a.CategoryId == categoryBlogDto.CategoryId && a.BlogId == categoryBlogDto.BlogId);

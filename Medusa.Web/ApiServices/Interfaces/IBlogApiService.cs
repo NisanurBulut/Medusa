@@ -18,5 +18,7 @@ namespace Medusa.WebUI.ApiServices.Interfaces
         Task AddToCommentAsync(CommentAddModel model);
         Task<List<CategoryListModel>> GetCategoriesAsync(int id);
         Task<List<BlogListModel>> GetLastSizeBlogAsync();
+        Task AddToCategoryAsync(CategoryBlogModel model);
+        Task RemoveFromCategoryAsync(CategoryBlogModel model);
     }
 }

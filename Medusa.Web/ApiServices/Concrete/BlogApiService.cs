@@ -176,5 +176,17 @@ namespace Medusa.WebUI.ApiServices.Concrete
             }
             return null;
         }
+        public async Task AddToCategoryAsync(CategoryBlogModel model)
+        {
+            var jsonData = JsonConvert.SerializeObject(model);
+            var content = new StringContent(jsonData, Encoding.UTF8, "applicatin/json");
+            await _httpClient.PostAsync($"{_httpClient.BaseAddress}/AddToCategory",content);
+        }
+        public async Task RemoveFromCategoryAsync(CategoryBlogModel model)
+        {
+            var jsonData = JsonConvert.SerializeObject(model);
+            var content = new StringContent(jsonData, Encoding.UTF8, "applicatin/json");
+            await _httpClient.PostAsync($"{_httpClient.BaseAddress}/RemoveFromCategory", content);
+        }
     }
 }
