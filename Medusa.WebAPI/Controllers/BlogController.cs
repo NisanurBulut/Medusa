@@ -6,6 +6,8 @@ using Medusa.WebAPI.CustomFilters;
 using Medusa.WebAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -18,21 +20,33 @@ namespace Medusa.WebAPI.Controllers
         private readonly IBlogService _blogService;
         private readonly ICommentService _commentService;
         private readonly IMapper _mapper;
-        public BlogController(IBlogService blogService, ICommentService commentService, IMapper mapper)
+        private readonly IMemoryCache _memoryCache;
+        public BlogController(IBlogService blogService, ICommentService commentService, IMapper mapper, IMemoryCache memoryCache)
         {
             this._mapper = mapper;
             this._blogService = blogService;
             _commentService = commentService;
+            _memoryCache = memoryCache;
         }
         [Route("[action]")]
         [HttpGet]
         public async Task<IActionResult> GetAllBlogs()
         {
-            return Ok(_mapper.Map<List<BlogDto>>(await _blogService.GetAllSortedByPostedTimeAsync()));
+            if (_memoryCache.TryGetValue("blogList", out List<BlogDto> list))
+            {
+                return Ok(list);
+            }
+            var blogList = _mapper.Map<List<BlogDto>>(await _blogService.GetAllSortedByPostedTimeAsync());
+            _memoryCache.Set("blogList", blogList, new MemoryCacheEntryOptions()
+            {
+                AbsoluteExpiration = DateTime.Now.AddDays(1),
+                Priority=CacheItemPriority.Normal
+            });
+            return Ok(blogList);
         }
         [Route("[action]")]
         [HttpGet]
-        public async Task<IActionResult> Search([FromQuery]string s)
+        public async Task<IActionResult> Search([FromQuery] string s)
         {
             return Ok(_mapper.Map<List<BlogDto>>(await _blogService.SearchBlogAsync(s)));
         }
@@ -72,7 +86,6 @@ namespace Medusa.WebAPI.Controllers
         [ValidModel]
         public async Task<IActionResult> UpdateBlog([FromForm] BlogUpdateModel model)
         {
-
             var uploadModel = await UploadFile(model.Image);
 
             if (uploadModel.UploadState == Enums.UploadState.success)
@@ -145,6 +158,6 @@ namespace Medusa.WebAPI.Controllers
             await _commentService.AddAsync(_mapper.Map<CommentEntity>(model));
             return Created("", model);
         }
-        
+
     }
 }
