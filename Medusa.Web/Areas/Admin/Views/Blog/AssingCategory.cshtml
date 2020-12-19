@@ -1,0 +1,20 @@
+﻿@model List<AssingCategoryModel>
+@{
+    ViewData["Title"] = "AssingCategory";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<form action="AssingCategory" method="post">
+    @foreach (var item in Model)
+    {
+        <input type="hidden" asp-for="@item.CategoryName" />
+        <input type="hidden" asp-for="@item.CategoryId" />
+
+        <div class="form-check">
+            <input type="checkbox" asp-for="@item.IsExist" class="form-check-input" />
+            <label asp-for="@item.IsExist" class=" form-check-label">@item.CategoryName</label>
+        </div>
+    }
+    <button type="submit" class="btn btn-block btn-success">Kaydet</button>
+</form>
+

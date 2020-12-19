@@ -13,8 +13,12 @@
                 <td>@item.Id</td>
                 <td>@item.Title</td>
                 <td>
-                    <a class="btn btn-sm btn-warning" asp-action="UpdateBlog" asp-route-id="@item.Id"> Düzenle
-                        
+                    <a class="btn btn-sm btn-dark" asp-action="AssingCategory" asp-route-id="@item.Id">
+                        Kategori Ata
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-warning" asp-action="UpdateBlog" asp-route-id="@item.Id"> Düzenle                       
                     </a>
                     <a class="btn btn-sm btn-danger" asp-action="DeleteBlog" asp-route-id="@item.Id">
                         Sil

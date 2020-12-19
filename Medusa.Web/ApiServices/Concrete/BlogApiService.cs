@@ -151,7 +151,7 @@ namespace Medusa.WebUI.ApiServices.Concrete
         }
         public async Task<List<CategoryListModel>> GetCategoriesAsync(int id)
         {
-            var responseMessage = await _httpClient.GetAsync($"{_httpClient.BaseAddress}/GetCategoriesByBlogIdAsync?id={id}");
+            var responseMessage = await _httpClient.GetAsync($"{_httpClient.BaseAddress}/GetCategoriesByBlogId?id={id}");
             if (responseMessage.IsSuccessStatusCode)
             {
                 return JsonConvert.DeserializeObject<List<CategoryListModel>>(await responseMessage.Content.ReadAsStringAsync());

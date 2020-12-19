@@ -2,6 +2,8 @@
 using Medusa.WebUI.Filters;
 using Medusa.WebUI.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 namespace Medusa.WebUI.Areas.Admin.Controllers
 {
@@ -62,6 +64,22 @@ namespace Medusa.WebUI.Areas.Admin.Controllers
         {
             await _blogApiService.DeleteAsync(id);
             return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> AssingCategory(int id, [FromServices]ICategoryApiService categoryApiService)
+        {
+            var categories = await categoryApiService.GetAllAsync();
+            var blogCategories = (await _blogApiService.GetCategoriesAsync(id)).Select(a=>a.Name).ToList();
+
+            List<AssingCategoryModel> list = new List<AssingCategoryModel>();
+            foreach (var category in categories)
+            {
+                AssingCategoryModel model = new AssingCategoryModel();
+                model.CategoryId = category.Id;
+                model.CategoryName = category.Name;
+                model.IsExist = blogCategories.Contains(category.Name);
+                list.Add(model);
+            }
+                return View(list);
         }
     }
 }
