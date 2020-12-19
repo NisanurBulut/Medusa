@@ -6,9 +6,9 @@ namespace Medusa.Business.StringInfo
 {
     public class JwtInfo
     {
-        public const string ISSUER = "http://localhost:55315/";
-        public const string AUDIENCE= "http://localhost:55555/";
-        public const string SECURITYKEY = "ImNisanurRunasin.1";
-        public const double EXPIRES = 40;
+        public string ISSUER { get; set; }
+        public string AUDIENCE { get; set; }
+        public string SECURITYKEY { get; set; }
+        public double EXPIRES { get; set; }
     }
 }

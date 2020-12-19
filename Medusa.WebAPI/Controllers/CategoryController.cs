@@ -5,6 +5,8 @@ using Medusa.Entities;
 using Medusa.WebAPI.CustomFilters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,8 +18,10 @@ namespace Medusa.WebAPI.Controllers
     {
         private readonly ICategoryService _categoryService;
         private readonly IMapper _mapper;
-        public CategoryController(ICategoryService categoryService, IMapper mapper)
+        private readonly IMemoryCache _memoryCache;
+        public CategoryController(ICategoryService categoryService, IMapper mapper, IMemoryCache memoryCache)
         {
+            this._memoryCache = memoryCache;
             this._mapper = mapper;
             this._categoryService = categoryService;
         }
@@ -65,6 +69,10 @@ namespace Medusa.WebAPI.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> GetWithBlogsWithCount()
         {
+            if (_memoryCache.TryGetValue("categories", out List<CategoryWithBlogsCountDto> list))
+            {
+                return Ok(list);
+            }
             var categories = await _categoryService.GetAllWithCategoryBlogAsync();
             List<CategoryWithBlogsCountDto> listCategoryBlog = new List<CategoryWithBlogsCountDto>();
             foreach (var item in categories)
@@ -75,7 +83,11 @@ namespace Medusa.WebAPI.Controllers
                 categoryWithBlogs.BlogsCount = item.CategoryBlogs.Count;
                 listCategoryBlog.Add(categoryWithBlogs);
             }
-
+            _memoryCache.Set("blogList", listCategoryBlog, new MemoryCacheEntryOptions()
+            {
+                AbsoluteExpiration = DateTime.Now.AddDays(1),
+                Priority = CacheItemPriority.Normal
+            });
             return Ok(listCategoryBlog);
         }
     }

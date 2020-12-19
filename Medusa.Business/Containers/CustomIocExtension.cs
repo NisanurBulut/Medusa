@@ -40,6 +40,7 @@ namespace Medusa.Business.Containers
             services.AddTransient<IValidator<CommentAddDto>, CommentAddValidator>();
 
             services.AddDbContext<DatabaseContext>();
+            services.AddScoped<IFacadeTool, FacadeTool>();
         }
     }
 }

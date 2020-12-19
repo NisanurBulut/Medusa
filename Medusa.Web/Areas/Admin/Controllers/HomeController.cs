@@ -14,7 +14,7 @@ namespace Medusa.WebUI.Areas.Admin.Controllers
         public IActionResult Index()
         {
             TempData["active"] = "";
-            return View();
+            return RedirectToAction("Index","Blog");
         }
         public IActionResult SignOut()
         {

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Medusa.Business.Interface;
+using Medusa.Business.Tools;
 using Medusa.DataTransferObject;
 using Medusa.Entities;
 using Medusa.WebAPI.CustomFilters;
@@ -20,24 +21,24 @@ namespace Medusa.WebAPI.Controllers
         private readonly IBlogService _blogService;
         private readonly ICommentService _commentService;
         private readonly IMapper _mapper;
-        private readonly IMemoryCache _memoryCache;
-        public BlogController(IBlogService blogService, ICommentService commentService, IMapper mapper, IMemoryCache memoryCache)
+        private readonly IFacadeTool _facadeTool;
+        public BlogController(IBlogService blogService, ICommentService commentService, IMapper mapper, IFacadeTool facadeTool)
         {
             this._mapper = mapper;
             this._blogService = blogService;
             _commentService = commentService;
-            _memoryCache = memoryCache;
+            _facadeTool = facadeTool;
         }
         [Route("[action]")]
         [HttpGet]
         public async Task<IActionResult> GetAllBlogs()
         {
-            if (_memoryCache.TryGetValue("blogList", out List<BlogDto> list))
+            if (_facadeTool.MemoryCache.TryGetValue("blogList", out List<BlogDto> list))
             {
                 return Ok(list);
             }
             var blogList = _mapper.Map<List<BlogDto>>(await _blogService.GetAllSortedByPostedTimeAsync());
-            _memoryCache.Set("blogList", blogList, new MemoryCacheEntryOptions()
+            _facadeTool.MemoryCache.Set("blogList", blogList, new MemoryCacheEntryOptions()
             {
                 AbsoluteExpiration = DateTime.Now.AddDays(1),
                 Priority=CacheItemPriority.Normal

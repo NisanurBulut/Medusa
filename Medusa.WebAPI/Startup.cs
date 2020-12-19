@@ -27,6 +27,9 @@ namespace Medusa.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<JwtInfo>(Configuration.GetSection("JwtInfo"));
+            var jwtInfo = Configuration.GetSection("JwtInfo").Get<JwtInfo>();
+
             services.AddAutoMapper(typeof(Startup));
             services.AddDependecy();
             services.AddScoped(typeof(ValidIdModel<>));
@@ -38,9 +41,9 @@ namespace Medusa.WebAPI
                     opt.RequireHttpsMetadata = false;
                     opt.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidIssuer = JwtInfo.ISSUER,
-                        ValidAudience = JwtInfo.AUDIENCE,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtInfo.SECURITYKEY)),
+                        ValidIssuer = jwtInfo.ISSUER,
+                        ValidAudience = jwtInfo.AUDIENCE,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtInfo.SECURITYKEY)),
                         ValidateLifetime = true, // token süresi geçince geçersiz sayýlsýn
                         ValidateAudience = true, // baþka adresten istek gelrse geçersiz kýl
                         ValidateIssuer = true,

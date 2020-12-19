@@ -1,5 +1,6 @@
 ﻿using Medusa.Business.StringInfo;
 using Medusa.Entities;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -11,15 +12,22 @@ namespace Medusa.Business.Tools
 {
     class JwtManager : IJwtService
     {
+        private readonly IOptions<JwtInfo> _jwtInfoOptions;
+        public JwtManager(IOptions<JwtInfo> jwtInfoOptions)
+        {
+            _jwtInfoOptions = jwtInfoOptions;
+        }
         public JwtToken GenerateJwt(AppUserEntity appUser)
         {
+            var jwtInfo = _jwtInfoOptions.Value;
             JwtToken jwtToken = new JwtToken();
-            SymmetricSecurityKey symmetricSecurity = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtInfo.SECURITYKEY));
+
+            SymmetricSecurityKey symmetricSecurity = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtInfo.SECURITYKEY));
 
             SigningCredentials signingCredentials = new SigningCredentials(symmetricSecurity, SecurityAlgorithms.HmacSha512);
 
-            JwtSecurityToken jwtSecurityToken = new JwtSecurityToken(JwtInfo.ISSUER,
-                JwtInfo.AUDIENCE, SetClaims(appUser), DateTime.Now, DateTime.Now.AddMinutes(JwtInfo.EXPIRES), signingCredentials);
+            JwtSecurityToken jwtSecurityToken = new JwtSecurityToken(jwtInfo.ISSUER,
+                jwtInfo.AUDIENCE, SetClaims(appUser), DateTime.Now, DateTime.Now.AddMinutes(jwtInfo.EXPIRES), signingCredentials);
 
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
 
