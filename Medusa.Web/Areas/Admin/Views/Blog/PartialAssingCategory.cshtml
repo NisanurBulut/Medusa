@@ -7,8 +7,8 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <form asp-action="AssingCategory" method="post">
-            <div class="modal-body text-center">
+        <form asp-controller="Blog" asp-action="AssingCategory" method="post">
+            <div class="modal-body">
                 @for (int i = 0; i < Model.Count; i++)
                 {
                     <input type="hidden" asp-for="@Model[i].CategoryName" />

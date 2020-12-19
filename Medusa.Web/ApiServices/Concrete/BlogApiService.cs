@@ -158,9 +158,9 @@ namespace Medusa.WebUI.ApiServices.Concrete
             }
             return null;
         }
-        public async Task<List<BlogListModel>> GetLastSizeBlogAsync()
+        public async Task<List<BlogListModel>> GetLastSizeBlogAsync(int size)
         {
-            var responseMessage = await _httpClient.GetAsync($"{_httpClient.BaseAddress}/GetLastSizeBlogAsync?size={5}");
+            var responseMessage = await _httpClient.GetAsync($"{_httpClient.BaseAddress}/GetLastSizeBlog?size={size}");
             if (responseMessage.IsSuccessStatusCode)
             {
                 return JsonConvert.DeserializeObject<List<BlogListModel>>(await responseMessage.Content.ReadAsStringAsync());
@@ -180,7 +180,7 @@ namespace Medusa.WebUI.ApiServices.Concrete
         {
             var jsonData = JsonConvert.SerializeObject(model);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            await _httpClient.PostAsync($"{_httpClient.BaseAddress}/AddToCategory",content);
+           var responseMessage = await _httpClient.PostAsync($"{_httpClient.BaseAddress}/AddToCategory",content);
         }
         public async Task RemoveFromCategoryAsync(CategoryBlogModel model)
         {

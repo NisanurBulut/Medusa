@@ -19,42 +19,44 @@ namespace Medusa.WebUI.Areas.Admin.Controllers
             return View(await _categoryApiService.GetAllAsync());
         }
         [HttpGet]
-        public IActionResult CreateCategory()
+        public async Task<IActionResult> CreateCategory(int id)
         {
-            return View(new CategoryAddModel());
+            if (id == 0)
+                return PartialView("PartialCategory", new CategoryUpdateModel());
+            else
+            {
+                var category = await _categoryApiService.GetByIdAsync(id);
+                var categoryUpdate = new CategoryUpdateModel
+                {
+                    Id = category.Id,
+                    Name = category.Name
+                };
+                return PartialView("PartialCategory", categoryUpdate);
+            }
         }
         [HttpPost]
-        public async Task<IActionResult> CreateCategory(CategoryAddModel item)
+        public async Task<IActionResult> CreateCategory(CategoryUpdateModel item)
         {
             if (ModelState.IsValid)
             {
-                await _categoryApiService.AddAsync(item);
+                if (item.Id == 0)
+                {
+                    var categoryAdd = new CategoryAddModel
+                    {
+                        Name = item.Name
+                    };
+                    await _categoryApiService.AddAsync(categoryAdd);
+                }
+                else
+                {
+                    await _categoryApiService.UpdateAsync(item);
+                }
+
                 return RedirectToAction("Index");
             }
             return View();
         }
-        [HttpGet]
-        public async Task<IActionResult> Updatecategory(int id)
-        {
-            var category = await _categoryApiService.GetByIdAsync(id);
-            var categoryUpdate = new CategoryUpdateModel
-            {
-                Id= category.Id,
-                Name = category.Name
-            };
-            return View(categoryUpdate);
-        }
-        [HttpPost]
-        public async Task<IActionResult> UpdateCategory(CategoryUpdateModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                await _categoryApiService.UpdateAsync(model);
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
-        
+       
         public async Task<IActionResult> DeleteCategory(int id)
         {
             await _categoryApiService.DeleteAsync(id);

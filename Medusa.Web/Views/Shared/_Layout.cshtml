@@ -12,7 +12,7 @@
     <link rel="icon" href="~/favicon.ico" type="image/x-icon">
     <!-- Bootstrap core CSS -->
     <link href="/css/bootswatch/simplex/bootstrap.min.css" rel="stylesheet">
-
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
     <!-- Custom styles for this template -->
     <link href="/css/site.css" rel="stylesheet">
 
@@ -24,7 +24,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
         <div class="container">
             <a class="navbar-brand" asp-action="Index" asp-controller="Home">
-              <b><i>MEDUSA</i></b> <img class="img-fluid" src="~/medusa-logo15.png" />
+                <b><i>MEDUSA</i></b> <img class="img-fluid" src="~/medusa-logo15.png" />
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -32,9 +32,8 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">
-                            <b>Ana Sayfa</b> 
-                            <span class="sr-only">(current)</span>
+                        <a class="nav-link" asp-action="Index" asp-controller="Home" asp-area="Admin">
+                            <b>Yönetim Paneli</b>
                         </a>
                     </li>
                 </ul>
@@ -44,7 +43,7 @@
 
     <!-- Page Content -->
     <div class="container">
-        <div class="row">
+        <div class="row pt-4">
             <!-- Blog Entries Column -->
             <div class="col-md-8">
                 <div class="my-4">
@@ -58,29 +57,24 @@
                 <!-- Search Widget -->
                 <div class="card my-4">
                     <form method="get" asp-action="Index" asp-controller="Home">
-                    <h5 class="card-header">Makaleler arasında arayın...</h5>
-                    <div class="card-body">
-                        <div class="input-group">
-                            <input name="s" type="text" class="form-control" placeholder="Herhangi bir şey ara...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-secondary" type="submit">Bul!</button>
-                            </span>
+                        <h5 class="card-header">Makaleler arasında arayın...</h5>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <input name="s" type="text" class="form-control" placeholder="Herhangi bir şey ara...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-secondary" type="submit">Bul!</button>
+                                </span>
+                            </div>
                         </div>
-                    </div>
 
                     </form>
                 </div>
 
                 <!-- Categories Widget -->
-               @await Component.InvokeAsync("CategoryList")
+                @await Component.InvokeAsync("CategoryList")
 
                 <!-- Side Widget -->
-                <div class="card my-4">
-                    <h5 class="card-header">Side Widget</h5>
-                    <div class="card-body">
-                        You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
-                    </div>
-                </div>
+                @await Component.InvokeAsync("LastSizeBlogList");
 
             </div>
 
@@ -100,6 +94,7 @@
     <!-- Bootstrap core JavaScript -->
     <script src="~/lib/jquery/jquery.min.js"></script>
     <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/font-awesome/js/all.min.js"></script>
     @RenderSection("JavaScript", false);
 </body>
 

@@ -101,7 +101,6 @@ namespace Medusa.WebAPI.Controllers
         }
 
         [HttpPost("[action]")]
-        [Authorize]
         [ValidModel]
         public async Task<IActionResult> AddToCategory(CategoryBlogDto model)
         {
@@ -130,7 +129,7 @@ namespace Medusa.WebAPI.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> GetLastSizeBlogAsync(int size)
         {
-            return Ok(_mapper.Map<BlogDto>(await _blogService.GetLastSizeAsync(size)));
+            return Ok(_mapper.Map<List<BlogDto>>(await _blogService.GetLastSizeAsync(size)));
         }
         [HttpGet("[action]")]
         public async Task<IActionResult> GetComments(int blogId, int? parentCommentId)

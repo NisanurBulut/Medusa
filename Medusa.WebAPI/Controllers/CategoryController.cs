@@ -47,10 +47,8 @@ namespace Medusa.WebAPI.Controllers
         [HttpPut("[action]")]
         [Authorize]
         [ValidModel]
-        public async Task<IActionResult> UpdateCategory(CategoryUpdateDto model, int id)
+        public async Task<IActionResult> UpdateCategory(CategoryUpdateDto model)
         {
-            if (model.Id != id) return BadRequest("Geçersiz id bilgisi");
-
             await _categoryService.UpdateAsync(_mapper.Map<CategoryUpdateDto, CategoryEntity>(model));
             return NoContent();
         }

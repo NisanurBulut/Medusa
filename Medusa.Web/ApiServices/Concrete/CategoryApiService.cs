@@ -78,7 +78,7 @@ namespace Medusa.WebUI.ApiServices.Concrete
             var jsonData = JsonConvert.SerializeObject(model);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _httpcontextAccessor.HttpContext.Session.GetString("token"));
-            await _httpClient.PutAsync(_httpClient.BaseAddress + "/UpdateCategory", content);
+            var responseMessage = await _httpClient.PutAsync(_httpClient.BaseAddress + "/UpdateCategory", content);
         }
     }
 }

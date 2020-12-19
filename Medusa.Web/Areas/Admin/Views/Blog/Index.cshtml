@@ -4,8 +4,20 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<a asp-action="CreateBlog" asp-controller="Blog" asp-area="Admin" class="btn btn-sm btn-info">Yeni Blog Yaz</a>
+
 <table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Başlık</th>
+            <th>Kategori Seçimi</th>
+            <th>
+                <a asp-action="CreateBlog" asp-controller="Blog" asp-area="Admin" class="btn btn-sm btn-info">
+                    <i class="fa fa-plus"></i>
+                </a>
+            </th>
+        </tr>
+    </thead>
     <tbody>
         @foreach (var item in Model)
         {
@@ -13,15 +25,21 @@
                 <td>@item.Id</td>
                 <td>@item.Title</td>
                 <td>    
-                    <a id ="linkAssingCategory" data-toggle="tooltip" title="" data-id="@item.Id" class="btn btn-sm btn-dark">Kategori Ata</a>                    
+                    <a class="btn btn-sm btn-dark linkAssingCategory" 
+                       data-toggle="tooltip" title="" data-id="@item.Id">
+                        <i class="fa fa-paperclip"></i>
+                    </a>                    
                     @* Modal *@
-                    <div id="myModal" class="modal fade" role="dialog" data-url="@Url.Action("PartialAssingCategory","Blog")"></div>
+                    <div id="myModal" class="modal fade" role="dialog" 
+                         data-url="@Url.Action("PartialAssingCategory","Blog")"></div>
                 </td>
                 <td>
-                    <a class="btn btn-sm btn-warning" asp-action="UpdateBlog" asp-route-id="@item.Id"> Düzenle                       
+                    <a class="btn btn-sm btn-warning" asp-action="UpdateBlog" 
+                       asp-route-id="@item.Id">
+                        <i class="fa fa-edit"></i>
                     </a>
                     <a class="btn btn-sm btn-danger" asp-action="DeleteBlog" asp-route-id="@item.Id">
-                        Sil
+                        <i class="fa fa-trash-alt"></i>
                     </a>
                 </td>
             </tr>
@@ -31,7 +49,7 @@
 <script src="~/lib/jquery/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#linkAssingCategory').click(function () {
+        $('.linkAssingCategory').click(function () {
             var url = $('#myModal').data('url');
             var id = $(this).attr('data-id');
             $.get(url + '/' + id, function (data) {

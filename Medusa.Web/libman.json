@@ -21,6 +21,22 @@
     {
       "library": "bootswatch@4.5.3",
       "destination": "wwwroot/lib/bootswatch/"
+    },
+    {
+      "library": "fontawesome-iconpicker@3.2.0",
+      "destination": "wwwroot/lib/fontawesome-iconpicker/",
+      "files": [
+        "js/fontawesome-iconpicker.min.js",
+        "css/fontawesome-iconpicker.min.css"
+      ]
+    },
+    {
+      "library": "font-awesome@5.15.1",
+      "destination": "wwwroot/lib/font-awesome/",
+      "files": [
+        "css/all.min.css",
+        "js/all.min.js"
+      ]
     }
   ]
 }
