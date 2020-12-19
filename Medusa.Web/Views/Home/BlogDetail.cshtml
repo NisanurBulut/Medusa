@@ -24,7 +24,7 @@
 <div class="card my-4">
     <h5 class="card-header">Bir Yorum Bırak</h5>
     <div class="card-body">
-        <form method="post" action="/Home/AddToCommentAsync">
+        <form method="post" action="/Home/AddToComment">
             <input type="hidden" name="BlogId" value="@Model.Id" />
             <div class="form-group">
                 <label>Maslah:</label>
@@ -76,7 +76,7 @@
         let htmlContent = `<div class="card my-4">
                     <h5 class="card-header">Bir Yorum Bırak</h5>
                     <div class="card-body">
-                        <form method="post" action="/Home/AddToCommentAsync">
+                        <form method="post" action="/Home/AddToComment">
                             <input type="hidden" name="BlogId" value="${blogId}" />
                             <input type="hidden" name="ParentCommentId" value="${id}" />
                             <div class="form-group">

@@ -77,6 +77,7 @@ namespace Medusa.WebAPI.Controllers
 
             if (uploadModel.UploadState == Enums.UploadState.success)
             {
+                model.ImagePath = uploadModel.NewName;
                 await _blogService.UpdateAsync(_mapper.Map<BlogUpdateModel, BlogEntity>(model));
                 return NoContent();
             }
