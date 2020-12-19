@@ -20,5 +20,6 @@ namespace Medusa.WebUI.ApiServices.Interfaces
         Task<List<BlogListModel>> GetLastSizeBlogAsync();
         Task AddToCategoryAsync(CategoryBlogModel model);
         Task RemoveFromCategoryAsync(CategoryBlogModel model);
+        Task<List<BlogListModel>> SearchAsync(string s);
     }
 }

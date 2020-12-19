@@ -3,23 +3,24 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@if (ViewBag.ActiveCategoryId != null)
+@if (ViewBag.ActiveCategoryId != null || !string.IsNullOrWhiteSpace(ViewBag.SearchString))
 {
-    <categoryDivTag id="ViewBag.ActiveCategoryId"></categoryDivTag>
+    <categoryDivTag search-string="@ViewBag.SearchString" id="ViewBag.ActiveCategoryId"></categoryDivTag>
 }
+
 @foreach (var blog in Model)
 {
     <!-- Blog Post -->
     <div class="card mb-4">
         <imgTag img-class="card-img-top" id="blog.Id"></imgTag>
-       
+
         <div class="card-body">
             <h2 class="card-title">@blog.Title</h2>
             <p class="card-text">@blog.ShortDescription</p>
             <a asp-action="BlogDetail" asp-route-id="@blog.Id" class="btn btn-primary">Devamını oku &rarr;</a>
         </div>
         <div class="card-footer text-muted">
-            @blog.PostedTime.ToLongDateString()         
+            @blog.PostedTime.ToLongDateString()
         </div>
     </div>
 }

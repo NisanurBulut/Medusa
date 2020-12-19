@@ -57,15 +57,18 @@
 
                 <!-- Search Widget -->
                 <div class="card my-4">
-                    <h5 class="card-header">Search</h5>
+                    <form method="get" asp-action="Index" asp-controller="Home">
+                    <h5 class="card-header">Makaleler arasında arayın...</h5>
                     <div class="card-body">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for...">
+                            <input name="s" type="text" class="form-control" placeholder="Herhangi bir şey ara...">
                             <span class="input-group-btn">
-                                <button class="btn btn-secondary" type="button">Go!</button>
+                                <button class="btn btn-secondary" type="submit">Bul!</button>
                             </span>
                         </div>
                     </div>
+
+                    </form>
                 </div>
 
                 <!-- Categories Widget -->

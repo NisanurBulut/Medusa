@@ -23,12 +23,17 @@ namespace Medusa.Web.Controllers
             _logger = logger;
         }
 
-        public async Task<IActionResult> Index(int? categoryId)
+        public async Task<IActionResult> Index(int? categoryId, string s)
         {
             if (categoryId.HasValue)
             {
                 ViewBag.ActiveCategoryId = categoryId.Value;
                 return View(await _blogApiService.GetAllByCategoryIdAsync(categoryId.Value));
+            }
+            if (!string.IsNullOrWhiteSpace(s))
+            {
+                ViewBag.SearchString = s;
+                return View(await _blogApiService.SearchAsync(s));
             }
             return View(await _blogApiService.GetAllAsync());
         }

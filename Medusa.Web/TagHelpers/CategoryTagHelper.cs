@@ -13,19 +13,27 @@ namespace Medusa.WebUI.TagHelpers
     public class CategoryTagHelper : TagHelper
     {
         private readonly ICategoryApiService _categoryApiService;
-        public int Id { get; set; }
+        public string SearchString { get; set; }
+        public int? Id { get; set; }
         public CategoryTagHelper(ICategoryApiService categoryApiService)
         {
             this._categoryApiService = categoryApiService;
         }
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
-          
-            var categoryItem = await _categoryApiService.GetByIdAsync(Id);
-            var html = $"<div class='border border-dark p-3 mb-2'>" +
-                $"<strong>Kategori : {categoryItem.Name}</strong> " +
-                $"<a style='cursor:pointer;' href={"Home/Index"} class='float-right'>Filtreyi Kaldır </a>" +
-                $"</div>";
+            string html = $"<div class='border border-dark p-3 mb-2'>";
+            if (Id.HasValue)
+            {
+                var categoryItem = await _categoryApiService.GetByIdAsync(Id.Value);
+                html = html + $"<strong>Kategori : {categoryItem.Name}</strong> ";
+            }
+            if (!string.IsNullOrWhiteSpace(SearchString))
+            {
+                html = html + $"<strong>Aranan ifade : {SearchString}</strong> ";
+            }
+            html = html + $"<a style='cursor:pointer;' href={"Home/Index"} class='float-right'>Filtreyi Kaldır </a>"
+                    + $"</div>";
+
             output.Content.SetHtmlContent(html);
         }
     }
