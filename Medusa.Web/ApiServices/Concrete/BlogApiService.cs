@@ -179,14 +179,14 @@ namespace Medusa.WebUI.ApiServices.Concrete
         public async Task AddToCategoryAsync(CategoryBlogModel model)
         {
             var jsonData = JsonConvert.SerializeObject(model);
-            var content = new StringContent(jsonData, Encoding.UTF8, "applicatin/json");
+            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
             await _httpClient.PostAsync($"{_httpClient.BaseAddress}/AddToCategory",content);
         }
         public async Task RemoveFromCategoryAsync(CategoryBlogModel model)
         {
             var jsonData = JsonConvert.SerializeObject(model);
-            var content = new StringContent(jsonData, Encoding.UTF8, "applicatin/json");
-            await _httpClient.PostAsync($"{_httpClient.BaseAddress}/RemoveFromCategory", content);
+            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMesssage = await _httpClient.PostAsync($"{_httpClient.BaseAddress}/RemoveFromCategory", content);
         }
     }
 }

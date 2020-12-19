@@ -69,7 +69,7 @@ namespace Medusa.WebUI.Areas.Admin.Controllers
         {
             var categories = await categoryApiService.GetAllAsync();
             var blogCategories = await _blogApiService.GetCategoriesAsync(id);
-
+            TempData["blogId"] = id;
             List<AssingCategoryModel> list = new List<AssingCategoryModel>();
             foreach (var category in categories)
             {
@@ -80,6 +80,33 @@ namespace Medusa.WebUI.Areas.Admin.Controllers
                 list.Add(model);
             }
                 return View(list);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AssingCategory(List<AssingCategoryModel> models)        
+        {
+           
+            foreach (var category in models)
+            {
+                if (category.IsExist)
+                {
+                    CategoryBlogModel blogModel = new CategoryBlogModel
+                    {
+                        BlogId = (int)TempData["blogId"],
+                        CategoryId = category.CategoryId
+                    };
+                   await _blogApiService.AddToCategoryAsync(blogModel);
+                }
+                else
+                {
+                    CategoryBlogModel blogModel = new CategoryBlogModel
+                    {
+                        BlogId = (int)TempData["blogId"],
+                        CategoryId = category.CategoryId
+                    };
+                    await _blogApiService.RemoveFromCategoryAsync(blogModel);
+                }
+            }
+            return RedirectToAction("Index");
         }
     }
 }

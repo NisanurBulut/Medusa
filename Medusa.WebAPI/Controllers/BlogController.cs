@@ -109,9 +109,8 @@ namespace Medusa.WebAPI.Controllers
             return Created("", model);
         }
 
-        [HttpDelete("[action]")]
-        [Authorize]
-        public async Task<IActionResult> RemoveFromCategory([FromQuery]CategoryBlogDto model)
+        [HttpPost("[action]")]
+        public async Task<IActionResult> RemoveFromCategory(CategoryBlogDto model)
         {
             await _blogService.RemoveFromCategoryAsync(model);
             return NoContent();

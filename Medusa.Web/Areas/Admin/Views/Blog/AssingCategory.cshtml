@@ -4,15 +4,15 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<form action="AssingCategory" method="post">
-    @foreach (var item in Model)
+<form asp-action="AssingCategory" method="post">
+    @for (int i = 0; i < Model.Count; i++)
     {
-        <input type="hidden" asp-for="@item.CategoryName" />
-        <input type="hidden" asp-for="@item.CategoryId" />
+        <input type="hidden" asp-for="@Model[i].CategoryName" />
+        <input type="hidden" asp-for="@Model[i].CategoryId" />
 
         <div class="form-check">
-            <input type="checkbox" asp-for="@item.IsExist" class="form-check-input" />
-            <label asp-for="@item.IsExist" class=" form-check-label">@item.CategoryName</label>
+            <input type="checkbox" asp-for="@Model[i].IsExist" class="form-check-input" />
+            <label asp-for="@Model[i].IsExist" class=" form-check-label">@Model[i].CategoryName</label>
         </div>
     }
     <button type="submit" class="btn btn-block btn-success">Kaydet</button>
