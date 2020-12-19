@@ -12,10 +12,10 @@
             <tr>
                 <td>@item.Id</td>
                 <td>@item.Title</td>
-                <td>
-                    <a class="btn btn-sm btn-dark" asp-action="AssingCategory" asp-route-id="@item.Id">
-                        Kategori Ata
-                    </a>
+                <td>    
+                    <a id ="linkAssingCategory" data-toggle="tooltip" title="" data-id="@item.Id" class="btn btn-sm btn-dark">Kategori Ata</a>                    
+                    @* Modal *@
+                    <div id="myModal" class="modal fade" role="dialog" data-url="@Url.Action("PartialAssingCategory","Blog")"></div>
                 </td>
                 <td>
                     <a class="btn btn-sm btn-warning" asp-action="UpdateBlog" asp-route-id="@item.Id"> Düzenle                       
@@ -28,3 +28,16 @@
         }
     </tbody>
 </table>
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#linkAssingCategory').click(function () {
+            var url = $('#myModal').data('url');
+            var id = $(this).attr('data-id');
+            $.get(url + '/' + id, function (data) {
+                $("#myModal").html(data);
+                $("#myModal").modal('show');
+            });
+        });
+    });
+</script>

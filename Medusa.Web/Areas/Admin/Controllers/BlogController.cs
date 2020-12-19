@@ -65,7 +65,7 @@ namespace Medusa.WebUI.Areas.Admin.Controllers
             await _blogApiService.DeleteAsync(id);
             return RedirectToAction("Index");
         }
-        public async Task<IActionResult> AssingCategory(int id, [FromServices]ICategoryApiService categoryApiService)
+        public async Task<IActionResult> PartialAssingCategory(int id, [FromServices]ICategoryApiService categoryApiService)
         {
             var categories = await categoryApiService.GetAllAsync();
             var blogCategories = await _blogApiService.GetCategoriesAsync(id);
@@ -79,7 +79,7 @@ namespace Medusa.WebUI.Areas.Admin.Controllers
                 model.IsExist = blogCategories.Contains(category);
                 list.Add(model);
             }
-                return View(list);
+                return PartialView("PartialAssingCategory", list);
         }
         [HttpPost]
         public async Task<IActionResult> AssingCategory(List<AssingCategoryModel> models)        

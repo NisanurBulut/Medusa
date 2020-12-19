@@ -1,0 +1,29 @@
+﻿@model List<AssingCategoryModel>
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Kategori Atama İşlemi</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <form asp-action="AssingCategory" method="post">
+            <div class="modal-body text-center">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <input type="hidden" asp-for="@Model[i].CategoryName" />
+                    <input type="hidden" asp-for="@Model[i].CategoryId" />
+
+                    <div class="form-check">
+                        <input type="checkbox" asp-for="@Model[i].IsExist" class="form-check-input" />
+                        <label asp-for="@Model[i].IsExist" class=" form-check-label">@Model[i].CategoryName</label>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Kaydet</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Vazgeç</button>
+            </div>
+        </form>
+    </div>
+</div>
