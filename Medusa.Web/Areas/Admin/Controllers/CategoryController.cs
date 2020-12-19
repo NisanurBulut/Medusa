@@ -16,6 +16,7 @@ namespace Medusa.WebUI.Areas.Admin.Controllers
         [JwtAuthorize]
         public async Task<IActionResult> Index()
         {
+            TempData["active"] = "Category";
             return View(await _categoryApiService.GetAllAsync());
         }
         [HttpGet]

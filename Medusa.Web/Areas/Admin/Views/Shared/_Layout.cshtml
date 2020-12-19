@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@{
+    string active = string.Empty;
+    if(TempData[active]!=null)
+         active = TempData["active"].ToString();
+
+
+}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -26,12 +33,17 @@
 
         <!-- Sidebar -->
         <div class="bg-light border-right" id="sidebar-wrapper">
-            <div class="sidebar-heading"> MEDUSA </div>
+            <div class="sidebar-heading text-center">
+                <img class="w-100 img-fluid img-thumbnail" src="~/medusa-red-logo35.png" /> <br />
+                <strong style="color: #d9230f;"><em><u>MEDUSA</u></em></strong>
+            </div>
             <div class="list-group list-group-flush">
                 <a asp-action="Index" asp-controller="Blog" asp-area="Admin"
-                   class="list-group-item list-group-item-action bg-light">Blog İşlemleri</a>
+                   class="list-group-item list-group-item-action @(active=="Blog"?"active":"")">Blog İşlemleri</a>
                 <a asp-action="Index" asp-controller="Category" asp-area="Admin"
-                   class="list-group-item list-group-item-action bg-light">Kategori İşlemleri</a>
+                   class="list-group-item list-group-item-action @(active=="Category"?"active":"")">Kategori İşlemleri</a>
+                <a asp-action="SignOut" asp-controller="Home" asp-area="Admin"
+                   class="list-group-item list-group-item-action bg-light">Çıkış Yap</a>
             </div>
         </div>
         <!-- /#sidebar-wrapper -->

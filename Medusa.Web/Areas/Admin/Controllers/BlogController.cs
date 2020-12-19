@@ -19,6 +19,7 @@ namespace Medusa.WebUI.Areas.Admin.Controllers
         [JwtAuthorize]
         public async Task<IActionResult> Index()
         {
+            TempData["active"] = "Blog";
             return View(await _blogApiService.GetAllAsync());
         }
         [HttpGet]
