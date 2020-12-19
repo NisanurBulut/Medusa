@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Text;
 
@@ -27,6 +28,17 @@ namespace Medusa.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSwaggerGen(opt =>
+            {
+                opt.SwaggerDoc("v1", new OpenApiInfo { Title = "Medusa API", Version = "v1" });
+                opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Description = "Bearer {Token}"
+                });
+            });
             services.Configure<JwtInfo>(Configuration.GetSection("JwtInfo"));
             var jwtInfo = Configuration.GetSection("JwtInfo").Get<JwtInfo>();
 
@@ -66,8 +78,10 @@ namespace Medusa.WebAPI
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("Error/Error");
             }
+            app.UseSwagger();
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Medusa API v1"); });
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

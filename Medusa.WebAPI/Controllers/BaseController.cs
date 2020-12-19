@@ -12,6 +12,7 @@ namespace Medusa.WebAPI.Controllers
     [ApiController]
     public class BaseController : ControllerBase
     {
+        [HttpGet("[action]")]
         public async Task<UploadModel> UploadFile(IFormFile formFile)
         {
             UploadModel model = new UploadModel();
