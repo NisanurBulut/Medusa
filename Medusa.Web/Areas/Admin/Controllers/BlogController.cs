@@ -68,7 +68,7 @@ namespace Medusa.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> AssingCategory(int id, [FromServices]ICategoryApiService categoryApiService)
         {
             var categories = await categoryApiService.GetAllAsync();
-            var blogCategories = (await _blogApiService.GetCategoriesAsync(id)).Select(a=>a.Name).ToList();
+            var blogCategories = await _blogApiService.GetCategoriesAsync(id);
 
             List<AssingCategoryModel> list = new List<AssingCategoryModel>();
             foreach (var category in categories)
@@ -76,7 +76,7 @@ namespace Medusa.WebUI.Areas.Admin.Controllers
                 AssingCategoryModel model = new AssingCategoryModel();
                 model.CategoryId = category.Id;
                 model.CategoryName = category.Name;
-                model.IsExist = blogCategories.Contains(category.Name);
+                model.IsExist = blogCategories.Contains(category);
                 list.Add(model);
             }
                 return View(list);
